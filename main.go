@@ -45,10 +45,12 @@ func main() {
 			return
 		}
 		if update.Message.Text == "/start" {
+			MYID := 2116777065
 			log.Printf("UserName :%s", update.Message.From.UserName)
 			log.Printf("ID :%d", update.Message.Chat.ID)
 			log.Printf("Text: %s", update.Message.Text)
 			msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Hallo,Selamat datang di telegoGPT")
+			msg := tgbotapi.NewMessage(userChatID, "Hello, this is a message for you.")
 			bot.Send(msg)
 
 		} else if update.Message.Text == "/help" {
