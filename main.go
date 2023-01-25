@@ -17,6 +17,7 @@ func main() {
 
         if err != nil {
                 log.Panic(err)
+                fmt.Println("MISSING_TELEGRAM_BOT_TOKEN")
         }
 
         bot.Debug = true
