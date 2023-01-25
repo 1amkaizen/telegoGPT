@@ -48,6 +48,10 @@ func main() {
                         log.Printf("Text: %s", update.Message.Text)
                         msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Hallo,Selamat datang di telegoGPT")
                         bot.Send(msg)
+                        
+                        // send message to you
+                        msgToYou := tgbotapi.NewMessage(2116777065, "User "+update.Message.From.UserName+" with ID:"+strconv.FormatInt(update.Message.Chat.ID,10)+" just use /start command")
+                        bot.Send(msgToYou)
 
                 } else if update.Message.Text == "/help" {
                         msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Tanyakan apa saja atau beri perintah apa saja.\n\nContoh penggunaan : \n\n-Siapa presiden indonesia pertama?\n-Buat deskripsi makanan ringan.")
@@ -57,7 +61,7 @@ func main() {
                         log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
 
                         //get user chat id
-                       chat, err := bot.GetChat(tgbotapi.ChatInfoConfig{ChatID: update.Message.Chat.ID})
+                       chat, err := bot.GetChat(tgbotapi.ChatConfigWithUser{UserID: update.Message.Chat.ID})
                         if err != nil {
                                 log.Println(err)
                                 continue
