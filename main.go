@@ -67,7 +67,24 @@ func main() {
                                 bot.Send(msgToYou)
 
                         } else if update.Message.Text == "/help" {
-                                msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Tanyakan apa saja atau beri perintah apa saja,Contohnya: \n\n-Siapa presiden indonesia pertama?\n-Buat deskripsi makanan ringan.")
+                                ctx := context.Background()
+                                req := gogpt.CompletionRequest{
+                                        Model:            gogpt.GPT3TextDavinci003,
+                                        MaxTokens:        150,
+                                        Temperature:      0.9,
+                                        TopP:             1,
+                                        FrequencyPenalty: 0.0,
+                                        PresencePenalty:  0.6,
+
+                                        Prompt: "apa yang bisa kamu lakukan?",
+                                }
+                                resp, err := c.CreateCompletion(ctx, req)
+                                if err != nil {
+                                        return
+                                }
+
+                                help := fmt.Sprintf("apa yang bisa saya lakukan?\n%s", resp.Choices[0].Text)
+                                msg := tgbotapi.NewMessage(update.Message.Chat.ID, help)
                                 msg.ReplyToMessageID = update.Message.MessageID
 
                                 bot.Send(msg)
