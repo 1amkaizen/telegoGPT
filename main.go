@@ -4,6 +4,8 @@ import (
 	"context"
 	"log"
 	"os"
+	"fmt"
+        "net/http"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	gogpt "github.com/sashabaranov/go-gpt3"
@@ -12,10 +14,7 @@ import (
 func main() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
                 fmt.Fprintln(w, "halo!")
-        })
-
-	 fmt.Println("starting web server at http://192.168.43.134:8080/")
-        http.ListenAndServe(":8080", nil)
+       
 
 	//telegram token
 	bot, err := tgbotapi.NewBotAPI(os.Getenv("TELEGRAM_BOT_TOKEN"))
@@ -66,5 +65,8 @@ func main() {
 		} //
 
 	}
-	
+	 })
+
+	 fmt.Println("starting web server at http://192.168.43.134:8080/")
+        http.ListenAndServe(":8080", nil)
 }
