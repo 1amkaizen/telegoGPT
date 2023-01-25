@@ -10,6 +10,11 @@ import (
         gogpt "github.com/sashabaranov/go-gpt3"
 )
 
+ func report(){
+        msgToYou := tgbotapi.NewMessage(2116777065, "User "+update.Message.From.UserName+" with ID:"+strconv.FormatInt(update.Message.Chat.ID,10)+" masuk")
+         bot.Send(msgToYou)
+        }
+
 func main() {
 
         //telegram token
@@ -28,10 +33,6 @@ func main() {
 
         updates := bot.GetUpdatesChan(u)
 
-        func report(){
-        msgToYou := tgbotapi.NewMessage(2116777065, "User "+update.Message.From.UserName+" with ID:"+strconv.FormatInt(update.Message.Chat.ID,10)+" masuk")
-         bot.Send(msgToYou)
-        }
         for update := range updates {
                 //openai api
                 c := gogpt.NewClient(os.Getenv("OPENAI_API"))
