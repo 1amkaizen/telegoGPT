@@ -83,8 +83,8 @@ func main() {
                                         return
                                 }
 
-                                help := fmt.Sprintf("apa yang bisa saya lakukan?\n%s", resp.Choices[0].Text)
-                                msg := tgbotapi.NewMessage(update.Message.Chat.ID, help)
+                               
+                                msg := tgbotapi.NewMessage(update.Message.Chat.ID, resp.Choices[0].Text)
                                 msg.ReplyToMessageID = update.Message.MessageID
 
                                 bot.Send(msg)
