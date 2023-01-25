@@ -39,6 +39,7 @@ func main() {
                         TopP:             1,
                         FrequencyPenalty: 0.0,
                         PresencePenalty:  0.6,
+                        Stop=[" Human:", " AI:"]
 
                         Prompt: update.Message.Text,
                 }
@@ -62,7 +63,7 @@ func main() {
                         bot.Send(msg)
 
                 } else if update.Message.Text == "/about" {
-                        msg := tgbotapi.NewMessage(update.Message.Chat.ID, update.Message.Text)
+                        msg := tgbotapi.NewMessage(update.Message.Chat.ID, "telegoGPT adalah bot telegram dengan API openAI dan di buat dengan menggunakan bahasa golang.")
                         bot.Send(msg)
                 } else if update.Message != nil { // jika mendapat pesan
                         log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
