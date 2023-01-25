@@ -4,6 +4,7 @@ import (
         "context"
         "log"
         "os"
+        "strconv"
 
         tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
         gogpt "github.com/sashabaranov/go-gpt3"
@@ -61,7 +62,7 @@ func main() {
                         log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
 
                         //get user chat id
-                       chat, err := bot.GetChat(tgbotapi.ChatConfigWithUser{UserID: update.Message.Chat.ID})
+                       chat, err := bot.GetChat(tgbotapi.ChatConfigWithChatID(update.Message.Chat.ID))
                         if err != nil {
                                 log.Println(err)
                                 continue
