@@ -62,7 +62,7 @@ func main() {
                         log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
 
                         //get user chat id
-                       chat, err := bot.GetChat(tgbotapi.ChatConfigWithChatID(update.Message.Chat.ID))
+                      chat, err := bot.GetChat(tgbotapi.ChatConfig{ChatID: update.Message.Chat.ID})
                         if err != nil {
                                 log.Println(err)
                                 continue
