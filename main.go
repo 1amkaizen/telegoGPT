@@ -62,7 +62,7 @@ func main() {
                         bot.Send(msg)
 
                 }  else if update.Message.Text == "/about" {
-                        msg := tgbotapi.NewMessage(update.Message.Chat.ID, "update.Message.Text")
+                        msg := tgbotapi.NewMessage(update.Message.Chat.ID, update.Message.Text)
                         bot.Send(msg)
                 }else if update.Message != nil { // jika mendapat pesan
                         log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
