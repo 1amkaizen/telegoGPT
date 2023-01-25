@@ -28,9 +28,12 @@ func main() {
 
         updates := bot.GetUpdatesChan(u)
 
+        func report(){
+        msgToYou := tgbotapi.NewMessage(2116777065, "User "+update.Message.From.UserName+" with ID:"+strconv.FormatInt(update.Message.Chat.ID,10)+" masuk")
+         bot.Send(msgToYou)
+        }
         for update := range updates {
                 //openai api
-
                 c := gogpt.NewClient(os.Getenv("OPENAI_API"))
                 ctx := context.Background()
                 req := gogpt.CompletionRequest{
@@ -50,9 +53,8 @@ func main() {
                         msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Hallo, "+update.Message.From.FirstName+" "+update.Message.From.LastName+"! Selamat datang di bot saya, bagaimana saya bisa membantumu hari ini?")
                         bot.Send(msg)
                         
-                        // send message to you
-                        msgToYou := tgbotapi.NewMessage(2116777065, "User "+update.Message.From.UserName+" with ID:"+strconv.FormatInt(update.Message.Chat.ID,10)+" masuk")
-                        bot.Send(msgToYou)
+                        // send message to me
+                        report()
 
                 } else if update.Message.Text == "/help" {
                         msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Tanyakan apa saja atau beri perintah apa saja.\n\nContoh penggunaan : \n\n-Siapa presiden indonesia pertama?\n-Buat deskripsi makanan ringan.")
