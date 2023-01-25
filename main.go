@@ -48,28 +48,37 @@ func main() {
                 if err != nil {
                         return
                 }
-                if update.Message.Text == "/start" {
-                        log.Printf("UserName :%s", update.Message.From.UserName)
-                        log.Printf("ID :%d", update.Message.Chat.ID)
-                        log.Printf("Text: %s", update.Message.Text)
-                        msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Hallo, "+update.Message.From.FirstName+" "+update.Message.From.LastName+"! Selamat datang di bot saya, bagaimana saya bisa membantumu hari ini?")
-                        bot.Send(msg)
+                 if update.Message != nil { // jika mendapat pesan
 
-                        // send message to me
-                        msgToYou := tgbotapi.NewMessage(2116777065, "User "+update.Message.From.UserName+" with ID:"+strconv.FormatInt(update.Message.Chat.ID, 10)+" masuk")
-                        bot.Send(msgToYou)
+                        if update.Message.Text == "/start" {
+                                log.Printf("UserName :%s", update.Message.From.UserName)
+                                log.Printf("ID :%d", update.Message.Chat.ID)
+                                log.Printf("Text: %s", update.Message.Text)
 
-                } else if update.Message.Text == "/help" {
-                        msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Tanyakan apa saja atau beri perintah apa saja,Contohnya: \n\n-Siapa presiden indonesia pertama?\n-Buat deskripsi makanan ringan.")
-                        bot.Send(msg)
+                                msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Hallo, "+update.Message.From.FirstName+" "+update.Message.From.LastName+"! Selamat datang di bot saya, bagaimana saya bisa membantumu hari ini?")
+                                msg.ReplyToMessageID = update.Message.MessageID
 
-                } else if update.Message != nil { // jika mendapat pesan
-                        log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
+                                bot.Send(msg)
 
-                        msg := tgbotapi.NewMessage(update.Message.Chat.ID, resp.Choices[0].Text)
-                        msg.ReplyToMessageID = update.Message.MessageID
+                                // send message to me
+                                msgToYou := tgbotapi.NewMessage(2116777065, "User "+update.Message.From.UserName+" with ID:"+strconv.FormatInt(update.Message.Chat.ID, 10)+" masuk")
+                                msg.ReplyToMessageID = update.Message.MessageID
 
-                        bot.Send(msg)
+                                bot.Send(msgToYou)
+
+                        } else if update.Message.Text == "/help" {
+                                msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Tanyakan apa saja atau beri perintah apa saja,Contohnya: \n\n-Siapa presiden indonesia pertama?\n-Buat deskripsi makanan ringan.")
+                                msg.ReplyToMessageID = update.Message.MessageID
+
+                                bot.Send(msg)
+
+                        } else {
+                                msg := tgbotapi.NewMessage(update.Message.Chat.ID, resp.Choices[0].Text)
+                                msg.ReplyToMessageID = update.Message.MessageID
+
+                                bot.Send(msg)
+
+                        }
 
                 }
         }
