@@ -30,7 +30,7 @@ func main() {
 	for update := range updates {
 		//openai api
 		//c := gogpt.NewClient(os.Getenv("OPENAI_API"))
-		c := gogpt.NewClient("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")
+		c := gogpt.NewClient("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")
 		ctx := context.Background()
 		req := gogpt.CompletionRequest{
 			Model: gogpt.GPT3TextDavinci003, MaxTokens: 999,
