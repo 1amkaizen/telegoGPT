@@ -10,8 +10,6 @@ import (
         gogpt "github.com/sashabaranov/go-gpt3"
 )
 
- 
-
 func main() {
 
         //telegram token
@@ -35,13 +33,13 @@ func main() {
                 c := gogpt.NewClient(os.Getenv("OPENAI_API"))
                 ctx := context.Background()
                 req := gogpt.CompletionRequest{
-                        Model: gogpt.GPT3TextDavinci003,
-                        MaxTokens: 150,
-                        Temperature: 0.9,
-                        TopP: 1,
+                        Model:            gogpt.GPT3TextDavinci003,
+                        MaxTokens:        150,
+                        Temperature:      0.9,
+                        TopP:             1,
                         FrequencyPenalty: 0.0,
-                        PresencePenalty: 0.6,
-                        
+                        PresencePenalty:  0.6,
+
                         Prompt: update.Message.Text,
                 }
                 resp, err := c.CreateCompletion(ctx, req)
@@ -54,26 +52,26 @@ func main() {
                         log.Printf("Text: %s", update.Message.Text)
                         msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Hallo, "+update.Message.From.FirstName+" "+update.Message.From.LastName+"! Selamat datang di bot saya, bagaimana saya bisa membantumu hari ini?")
                         bot.Send(msg)
-                        
+
                         // send message to me
-                        msgToYou := tgbotapi.NewMessage(2116777065, "User "+update.Message.From.UserName+" with ID:"+strconv.FormatInt(update.Message.Chat.ID,10)+" masuk")
+                        msgToYou := tgbotapi.NewMessage(2116777065, "User "+update.Message.From.UserName+" with ID:"+strconv.FormatInt(update.Message.Chat.ID, 10)+" masuk")
                         bot.Send(msgToYou)
 
                 } else if update.Message.Text == "/help" {
                         msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Tanyakan apa saja atau beri perintah apa saja.\n\nContoh penggunaan : \n\n-Siapa presiden indonesia pertama?\n-Buat deskripsi makanan ringan.")
                         bot.Send(msg)
 
-                }else if update.Message.Text == "/cuaca hari ini" {
-                 req := gogpt.CompletionRequest{
-                 Model: gogpt.GPT3TextDavinci003,
-                  MaxTokens: 150,
-                Temperature: 0.9,
-                TopP: 1,
-                FrequencyPenalty: 0.0,
-                PresencePenalty: 0.6,
-                Prompt: "Cuaca hari ini di kota "+update.Message.Text,
-    }
-} else if update.Message != nil { // jika mendapat pesan
+                } else if update.Message.Text == "/cuaca hari ini" {
+                        req := gogpt.CompletionRequest{
+                                Model:            gogpt.GPT3TextDavinci003,
+                                MaxTokens:        150,
+                                Temperature:      0.9,
+                                TopP:             1,
+                                FrequencyPenalty: 0.0,
+                                PresencePenalty:  0.6,
+                                Prompt:           "Cuaca hari ini di kota " + update.Message.Text,
+                        }
+                } else if update.Message != nil { // jika mendapat pesan
                         log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
 
                         msg := tgbotapi.NewMessage(update.Message.Chat.ID, resp.Choices[0].Text)
@@ -81,8 +79,6 @@ func main() {
 
                         bot.Send(msg)
 
-
-                       
                 }
         }
 }
