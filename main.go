@@ -32,7 +32,8 @@ func main() {
 		c := gogpt.NewClient(os.Getenv("OPENAI_API"))		
 		ctx := context.Background()
 		req := gogpt.CompletionRequest{
-			Model: gogpt.GPT3TextDavinci003, MaxTokens: 999,
+			Model: gogpt.GPT3TextDavinci003, 
+			MaxTokens: 999,
 
 			Prompt: update.Message.Text,
 		}
@@ -61,5 +62,5 @@ func main() {
 	}
 	
 
-	}
+	
 }
