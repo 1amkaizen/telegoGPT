@@ -39,7 +39,6 @@ func main() {
                         TopP:             1,
                         FrequencyPenalty: 0.0,
                         PresencePenalty:  0.6,
-                        
 
                         Prompt: update.Message.Text,
                 }
@@ -59,10 +58,10 @@ func main() {
                         bot.Send(msgToYou)
 
                 } else if update.Message.Text == "/help" {
-                        msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Tanyakan apa saja atau beri perintah apa saja,Contohnya: \n\n-Siapa presiden indonesia pertama?\n-Buat deskripsi makanan ringan.\n-Buat code python.")
+                        msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Tanyakan apa saja atau beri perintah apa saja,Contohnys: \n\n-Siapa presiden indonesia pertama?\n-Buat deskripsi makanan ringan.")
                         bot.Send(msg)
 
-                }else if update.Message != nil { // jika mendapat pesan
+                } else if update.Message != nil { // jika mendapat pesan
                         log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
 
                         msg := tgbotapi.NewMessage(update.Message.Chat.ID, resp.Choices[0].Text)
