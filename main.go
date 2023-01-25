@@ -5,6 +5,7 @@ import (
         "log"
         "os"
         "strconv"
+        "fmt"
 
         tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
         gogpt "github.com/sashabaranov/go-gpt3"
