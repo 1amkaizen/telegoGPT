@@ -61,18 +61,13 @@ func main() {
                 } else if update.Message != nil { // jika mendapat pesan
                         log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
 
-                        //get user chat id
-                      chat, err := bot.GetChat(tgbotapi.ChatConfig{ChatID: update.Message.Chat.ID})
-                        if err != nil {
-                                log.Println(err)
-                                continue
-                        }
-                        //get user id
-                        var userId int64
-                        userId = chat.ID
-                        //send message to user
-                        msg := tgbotapi.NewMessage(userId, resp.Choices[0].Text)
+                        msg := tgbotapi.NewMessage(update.Message.Chat.ID, resp.Choices[0].Text)
+                        msg.ReplyToMessageID = update.Message.MessageID
+
                         bot.Send(msg)
+
+
+                       
                 }
         }
 }
