@@ -10,10 +10,7 @@ import (
         gogpt "github.com/sashabaranov/go-gpt3"
 )
 
- func report(){
-        msgToYou := tgbotapi.NewMessage(2116777065, "User "+update.Message.From.UserName+" with ID:"+strconv.FormatInt(update.Message.Chat.ID,10)+" masuk")
-         bot.Send(msgToYou)
-        }
+ 
 
 func main() {
 
@@ -55,7 +52,8 @@ func main() {
                         bot.Send(msg)
                         
                         // send message to me
-                        report()
+                        msgToYou := tgbotapi.NewMessage(2116777065, "User "+update.Message.From.UserName+" with ID:"+strconv.FormatInt(update.Message.Chat.ID,10)+" masuk")
+                        bot.Send(msgToYou)
 
                 } else if update.Message.Text == "/help" {
                         msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Tanyakan apa saja atau beri perintah apa saja.\n\nContoh penggunaan : \n\n-Siapa presiden indonesia pertama?\n-Buat deskripsi makanan ringan.")
