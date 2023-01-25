@@ -76,7 +76,7 @@ func main() {
                                         FrequencyPenalty: 0.0,
                                         PresencePenalty:  0.6,
 
-                                        Prompt: "apa yang bisa kamu lakukan?",
+                                        Prompt: "perintah apa saja yang bisa kamu terima??",
                                 }
                                 resp, err := c.CreateCompletion(ctx, req)
                                 if err != nil {
