@@ -11,9 +11,8 @@ import (
 func main() {
 
 	//telegram token
-	//bot, err := tgbotapi.NewBotAPI(os.Getenv("TELEGRAM_BOT_TOKEN"))
-	bot, err := tgbotapi.NewBotAPI("5820426451:AAFhMWTi-JXRVHsdZRDIQTDseWPMgU9IEVY")
-
+	bot, err := tgbotapi.NewBotAPI(os.Getenv("TELEGRAM_BOT_TOKEN"))
+	
 	if err != nil {
 		log.Panic(err)
 	}
@@ -29,8 +28,7 @@ func main() {
 
 	for update := range updates {
 		//openai api
-		//c := gogpt.NewClient(os.Getenv("OPENAI_API"))
-		c := gogpt.NewClient("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")
+		c := gogpt.NewClient(os.Getenv("OPENAI_API"))		
 		ctx := context.Background()
 		req := gogpt.CompletionRequest{
 			Model: gogpt.GPT3TextDavinci003, MaxTokens: 999,
