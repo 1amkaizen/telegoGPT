@@ -45,7 +45,9 @@ func main() {
 			return
 		}
 		if update.Message.Text == "/start" {
-			log.Printf("hallo %s", update.Message.From.UserName)
+			log.Printf("UserName :%s", update.Message.From.UserName)
+			log.Printf("ID :%s", update.Message.Chat.ID)
+			log.Printf("Text: %s", update.Message.Text)
 			msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Hallo,Selamat datang di telegoGPT")
 			bot.Send(msg)
 
