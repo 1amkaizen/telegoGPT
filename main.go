@@ -47,8 +47,7 @@ func main() {
                         log.Printf("UserName :%s", update.Message.From.UserName)
                         log.Printf("ID :%d", update.Message.Chat.ID)
                         log.Printf("Text: %s", update.Message.Text)
-                        msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Hallo,Selamat datang di telegoGPT")
-                        msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Hallo, "+update.Message.From.FirstName+" "+update.Message.From.LastName+"! Bagaimana kabarmu hari ini?")
+                        msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Hallo, "+update.Message.From.FirstName+" "+update.Message.From.LastName+"! Selamat datang di bot saya, bagaimana saya bisa membantumu hari ini?")
                         bot.Send(msg)
                         
                         // send message to you
