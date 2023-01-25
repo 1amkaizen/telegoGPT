@@ -22,6 +22,18 @@ func main() {
         }
 
         bot.Debug = true
+        // set log level, timestamp and report caller
+        log.SetLevel(log.DebugLevel)
+        log.SetFlags(log.LstdFlags | log.Lmicroseconds)
+        log.SetReportCaller(true)
+
+        // open log file
+        file, err := os.OpenFile("bot.log", os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0666)
+        if err != nil {
+                log.Fatal(err)
+        }
+        defer file.Close()
+        log.SetOutput(file)
 
         log.Printf("Authorized on account %s", bot.Self.UserName)
 
