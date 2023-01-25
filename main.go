@@ -50,7 +50,7 @@ func main() {
 			log.Printf("ID :%d", update.Message.Chat.ID)
 			log.Printf("Text: %s", update.Message.Text)
 			msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Hallo,Selamat datang di telegoGPT")
-			msg := tgbotapi.NewMessage(userChatID, "Hello, this is a message for you.")
+			msg := tgbotapi.NewMessage(MYID, "ada user masuk.")
 			bot.Send(msg)
 
 		} else if update.Message.Text == "/help" {
