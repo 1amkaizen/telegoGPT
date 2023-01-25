@@ -39,7 +39,7 @@ func main() {
                         TopP:             1,
                         FrequencyPenalty: 0.0,
                         PresencePenalty:  0.6,
-                        Stop=[" Human:", " AI:"]
+                        
 
                         Prompt: update.Message.Text,
                 }
