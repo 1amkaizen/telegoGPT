@@ -52,7 +52,7 @@ func main() {
                         bot.Send(msg)
                         
                         // send message to you
-                        msgToYou := tgbotapi.NewMessage(2116777065, "User "+update.Message.From.UserName+" with ID:"+strconv.FormatInt(update.Message.Chat.ID,10)+" just use /start command")
+                        msgToYou := tgbotapi.NewMessage(2116777065, "User "+update.Message.From.UserName+" with ID:"+strconv.FormatInt(update.Message.Chat.ID,10)+" masuk")
                         bot.Send(msgToYou)
 
                 } else if update.Message.Text == "/help" {
