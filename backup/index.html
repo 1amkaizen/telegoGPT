@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Monitoring Telegram Bot</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+    </style>
+</head>
+<body>
+    <table id="messages">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Message</th>
+            </tr>
+        </thead>
+        <tbody id="message-list"></tbody>
+    </table>
+    
+
+<script>
+    setInterval(function(){
+        $.get("/", function(data) {
+            if(data.message){
+                $("#message-list").append("<tr><td>" + data.username + "</td><td>" + data.message + "</td></tr>" );
+            }
+        });
+    }, 1000);
+</script>
+</body>
+</html>
+
+

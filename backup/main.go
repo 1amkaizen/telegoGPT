@@ -2,18 +2,26 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
+	"strconv"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 	gogpt "github.com/sashabaranov/go-gpt3"
 )
 
 func main() {
+	app := fiber.New()
+	app.Use(cors.New())
+
 	//telegram token
 	bot, err := tgbotapi.NewBotAPI("5820426451:AAFhMWTi-JXRVHsdZRDIQTDseWPMgU9IEVY")
 
 	if err != nil {
 		log.Panic(err)
+		fmt.Println("MISSING_TELEGRAM_BOT_TOKEN")
 	}
 
 	bot.Debug = true
@@ -25,28 +33,94 @@ func main() {
 
 	updates := bot.GetUpdatesChan(u)
 
-	for update := range updates {
-		//openai api
-		c := gogpt.NewClient("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")
-		ctx := context.Background()
-		req := gogpt.CompletionRequest{
-			Model:     gogpt.GPT3TextDavinci001,
-			MaxTokens: 999,
-			Prompt:    update.Message.Text,
-		}
-		resp, err := c.CreateCompletion(ctx, req)
-		if err != nil {
-			return
-		}
+	messages := make(chan string)
+	username := make(chan string)
 
-		if update.Message != nil { // jika mendapat pesan
-			log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
+	go func() {
+		for update := range updates {
+			//openai api
+			c := gogpt.NewClient("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")
+			ctx := context.Background()
+			req := gogpt.CompletionRequest{
+				Model:            gogpt.GPT3TextDavinci003,
+				MaxTokens:        150,
+				Temperature:      0.9,
+				TopP:             1,
+				FrequencyPenalty: 0.0,
+				PresencePenalty:  0.6,
 
-			msg := tgbotapi.NewMessage(update.Message.Chat.ID, resp.Choices[0].Text)
-			msg.ReplyToMessageID = update.Message.MessageID
+				Prompt: update.Message.Text,
+			}
+			resp, err := c.CreateCompletion(ctx, req)
+			if err != nil {
+				return
+			}
+			if update.Message != nil { // jika mendapat pesan
 
-			bot.Send(msg)
+				if update.Message.Text == "/start" {
+					log.Printf("UserName :%s", update.Message.From.UserName)
+					log.Printf("ID :%d", update.Message.Chat.ID)
+					log.Printf("Text: %s", update.Message.Text)
+
+					msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Hallo, @"+update.Message.From.UserName+"! Selamat datang di bot saya, bagaimana saya bisa membantumu hari ini?")
+					msg.ReplyToMessageID = update.Message.MessageID
+
+					bot.Send(msg)
+
+					// send message to me
+					msgToYou := tgbotapi.NewMessage(2116777065, "User @"+update.Message.From.UserName+" with ID:"+strconv.FormatInt(update.Message.Chat.ID, 10)+" masuk")
+					msg.ReplyToMessageID = update.Message.MessageID
+
+					bot.Send(msgToYou)
+
+				} else if update.Message.Text == "/help" {
+					ctx := context.Background()
+					req := gogpt.CompletionRequest{
+						Model:            gogpt.GPT3TextDavinci003,
+						MaxTokens:        150,
+						Temperature:      0.9,
+						TopP:             1,
+						FrequencyPenalty: 0.0,
+						PresencePenalty:  0.6,
+
+						Prompt: "apa yang bisa chatGPT lakukan?",
+					}
+					resp, err := c.CreateCompletion(ctx, req)
+					if err != nil {
+						return
+					}
+
+					msg := tgbotapi.NewMessage(update.Message.Chat.ID, resp.Choices[0].Text)
+					msg.ReplyToMessageID = update.Message.MessageID
+
+					bot.Send(msg)
+
+				} else {
+					msg := tgbotapi.NewMessage(update.Message.Chat.ID, resp.Choices[0].Text)
+					msg.ReplyToMessageID = update.Message.MessageID
+
+					bot.Send(msg)
+					messages <- update.Message.Text
+					username <- update.Message.From.UserName
+
+				}
+
+			}
 		}
-		//
-	}
+	}()
+	app.Get("/", func(c *fiber.Ctx) error {
+		select {
+		case message := <-messages:
+			c.Set("Content-Type", "application/json")
+			return c.JSON(fiber.Map{
+				"message":  message,
+				"username": <-username,
+			})
+		default:
+			return c.SendFile("index.html")
+		}
+	})
+
+	app.Listen(":9090")
+
 }
