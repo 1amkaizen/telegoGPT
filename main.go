@@ -97,25 +97,6 @@ func main() {
 				bot.Send(msg)
 
 			} else {
-				if conversationContext == "" {
-					prompt = update.Message.Text
-				} else {
-					prompt = conversationContext + update.Message.Text
-				}
-				req := gogpt.CompletionRequest{
-					Model:            gogpt.GPT3TextDavinci003,
-					MaxTokens:        150,
-					Temperature:      0.9,
-					TopP:             1,
-					FrequencyPenalty: 0.0,
-					PresencePenalty:  0.6,
-
-					Prompt: prompt,
-				}
-				resp, err := c.CreateCompletion(ctx, req)
-				if err != nil {
-					return
-				}
 
 				msg := tgbotapi.NewMessage(update.Message.Chat.ID, resp.Choices[0].Text)
 				msg.ReplyToMessageID = update.Message.MessageID
