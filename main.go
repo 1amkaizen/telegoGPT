@@ -11,8 +11,6 @@ import (
 	gogpt "github.com/sashabaranov/go-gpt3"
 )
 
-var conversationHistory []string // variabel untuk menyimpan histori percakapan
-
 func main() {
 
 	//telegram token
@@ -36,15 +34,41 @@ func main() {
 		//openai api
 		c := gogpt.NewClient(os.Getenv("OPENAI_API"))
 		ctx := context.Background()
-		var req gogpt.CompletionRequest
-		var currentConversation string
-		currentConversation = update.Message.Text // simpan percakapan saat ini di variabel
+		req := gogpt.CompletionRequest{
+			Model:            gogpt.GPT3TextDavinci003,
+			MaxTokens:        150,
+			Temperature:      0.9,
+			TopP:             1,
+			FrequencyPenalty: 0.0,
+			PresencePenalty:  0.6,
 
-		// cek apakah percakapan saat ini sudah pernah terjadi sebelumnya
-		for _, conversation := range conversationHistory {
-			if conversation == currentConversation {
-				// percakapan sudah pernah terjadi sebelumnya, gunakan konteks dari percakapan sebelumnya
-				req = gogpt.CompletionRequest{
+			Prompt: update.Message.Text,
+		}
+		resp, err := c.CreateCompletion(ctx, req)
+		if err != nil {
+			return
+		}
+		if update.Message != nil { // jika mendapat pesan
+
+			if update.Message.Text == "/start" {
+				log.Printf("UserName :%s", update.Message.From.UserName)
+				log.Printf("ID :%d", update.Message.Chat.ID)
+				log.Printf("Text: %s", update.Message.Text)
+
+				msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Hallo, @"+update.Message.From.UserName+"! Selamat datang di bot saya, bagaimana saya bisa membantumu hari ini?")
+				msg.ReplyToMessageID = update.Message.MessageID
+
+				bot.Send(msg)
+
+				// send message to me
+				msgToYou := tgbotapi.NewMessage(2116777065, "User @"+update.Message.From.UserName+" with ID:"+strconv.FormatInt(update.Message.Chat.ID, 10)+" masuk")
+				msg.ReplyToMessageID = update.Message.MessageID
+
+				bot.Send(msgToYou)
+
+			} else if update.Message.Text == "/help" {
+				ctx := context.Background()
+				req := gogpt.CompletionRequest{
 					Model:            gogpt.GPT3TextDavinci003,
 					MaxTokens:        150,
 					Temperature:      0.9,
@@ -52,71 +76,26 @@ func main() {
 					FrequencyPenalty: 0.0,
 					PresencePenalty:  0.6,
 
-					Prompt:  currentConversation,
-					Context: conversationHistory,
+					Prompt: "apa yang bisa chatGPT lakukan?",
 				}
-				break
+				resp, err := c.CreateCompletion(ctx, req)
+				if err != nil {
+					return
+				}
+
+				msg := tgbotapi.NewMessage(update.Message.Chat.ID, resp.Choices[0].Text)
+				msg.ReplyToMessageID = update.Message.MessageID
+
+				bot.Send(msg)
+
 			} else {
-				// percakapan baru, tidak ada konteks yang digunakan
-				req = gogpt.CompletionRequest{
-					Model:            gogpt.GPT3TextDavinci003,
-					MaxTokens:        150,
-					Temperature:      0.9,
-					TopP:             1,
-					FrequencyPenalty: 0.0,
-					PresencePenalty:  0.6,
+				msg := tgbotapi.NewMessage(update.Message.Chat.ID, resp.Choices[0].Text)
+				msg.ReplyToMessageID = update.Message.MessageID
 
-					Prompt: currentConversation,
-				}
+				bot.Send(msg)
 			}
+
 		}
-
-		// cek jenis pesan yang diterima
-		if update.Message.Text == "/start" {
-			log.Printf("UserName :%s", update.Message.From.UserName)
-			log.Printf("ID :%d", update.Message.Chat.ID)
-			log.Printf("Text: %s", update.Message.Text)
-
-			msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Hallo, @"+update.Message.From.UserName+"! Selamat datang di bot saya, bagaimana saya bisa membantumu hari ini?")
-			msg.ReplyToMessageID = update.Message.MessageID
-
-			bot.Send(msg)
-
-			// send message to me
-			msgToYou := tgbotapi.NewMessage(2116777065, "User @"+update.Message.From.UserName+" with ID:"+strconv.FormatInt(update.Message.Chat.ID, 10)+" masuk")
-			msg.ReplyToMessageID = update.Message.MessageID
-
-			bot.Send(msgToYou)
-
-		} else if update.Message.Text == "/help" {
-			ctx := context.Background()
-			req := gogpt.CompletionRequest{
-				Model:            gogpt.GPT3TextDavinci003,
-				MaxTokens:        150,
-				Temperature:      0.9,
-				TopP:             1,
-				FrequencyPenalty: 0.0,
-				PresencePenalty:  0.6,
-
-				Prompt: "apa yang bisa chatGPT lakukan?",
-			}
-			resp, err := c.CreateCompletion(ctx, req)
-			if err != nil {
-				return
-			}
-
-			msg := tgbotapi.NewMessage(update.Message.Chat.ID, resp.Choices[0].Text)
-			msg.ReplyToMessageID = update.Message.MessageID
-
-			bot.Send(msg)
-
-		} else {
-			msg := tgbotapi.NewMessage(update.Message.Chat.ID, resp.Choices[0].Text)
-			msg.ReplyToMessageID = update.Message.MessageID
-
-			bot.Send(msg)
-		}
-
 	}
 
 }
