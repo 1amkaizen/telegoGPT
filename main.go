@@ -11,6 +11,8 @@ import (
 	gogpt "github.com/sashabaranov/go-gpt3"
 )
 
+var conversationContext string
+
 func main() {
 
 	//telegram token
@@ -34,6 +36,12 @@ func main() {
 		//openai api
 		c := gogpt.NewClient(os.Getenv("OPENAI_API"))
 		ctx := context.Background()
+		var prompt string
+		if conversationContext == "" {
+			prompt = update.Message.Text
+		} else {
+			prompt = conversationContext + update.Message.Text
+		}
 		req := gogpt.CompletionRequest{
 			Model:            gogpt.GPT3TextDavinci003,
 			MaxTokens:        150,
@@ -42,7 +50,7 @@ func main() {
 			FrequencyPenalty: 0.0,
 			PresencePenalty:  0.6,
 
-			Prompt: update.Message.Text,
+			Prompt: prompt,
 		}
 		resp, err := c.CreateCompletion(ctx, req)
 		if err != nil {
