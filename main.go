@@ -122,6 +122,6 @@ func main() {
 		}
 	})
 
-	app.Listen(":$PORT")
+	app.Listen(":443")
 
 }
