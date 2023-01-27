@@ -60,53 +60,7 @@ func main() {
 
 		if update.Message != nil { // jika mendapat pesan
 
-			if isQuestion(update.Message.Text) {
-				// handle question message
-				context = "question"
-				//call openai api
-				c := gogpt.NewClient(os.Getenv("OPENAI_API"))
-				ctx := context.Background()
-				req := gogpt.CompletionRequest{
-					Model:            gogpt.GPT3TextDavinci003,
-					MaxTokens:        150,
-					Temperature:      0.9,
-					TopP:             1,
-					FrequencyPenalty: 0.0,
-					PresencePenalty:  0.6,
-					Prompt:           update.Message.Text,
-					Context:          context,
-				}
-				resp, err := c.CreateCompletion(ctx, req)
-				if err != nil {
-					return
-				}
-				msg := tgbotapi.NewMessage(update.Message.Chat.ID, resp.Choices[0].Text)
-				msg.ReplyToMessageID = update.Message.MessageID
-				bot.Send(msg)
-			} else if isCommand(update.Message.Text) {
-				// handle command message
-				context = "command"
-				//call openai api
-				c := gogpt.NewClient(os.Getenv("OPENAI_API"))
-				ctx := context.Background()
-				req := gogpt.CompletionRequest{
-					Model:            gogpt.GPT3TextDavinci003,
-					MaxTokens:        150,
-					Temperature:      0.9,
-					TopP:             1,
-					FrequencyPenalty: 0.0,
-					PresencePenalty:  0.6,
-					Prompt:           update.Message.Text,
-					Context:          context,
-				}
-				resp, err := c.CreateCompletion(ctx, req)
-				if err != nil {
-					return
-				}
-				msg := tgbotapi.NewMessage(update.Message.Chat.ID, resp.Choices[0].Text)
-				msg.ReplyToMessageID = update.Message.MessageID
-				bot.Send(msg)
-			} else if update.Message.Text == "/start" {
+			if update.Message.Text == "/start" {
 				log.Printf("UserName :%s", update.Message.From.UserName)
 				log.Printf("ID :%d", update.Message.Chat.ID)
 				log.Printf("Text: %s", update.Message.Text)
