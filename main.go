@@ -6,12 +6,22 @@ import (
         "os"
         "strconv"
         "fmt"
+        "github.com/gofiber/fiber/v2"
 
         tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
         gogpt "github.com/sashabaranov/go-gpt3"
 )
 
 func main() {
+        app := fiber.New()
+        app.Get("/", func(c *fiber.Ctx) error {
+                //return c.SendFile("index.html")
+                return c.SendString("Hello, World!")
+
+        })
+
+        app.Listen(":3000")
+
 
         //telegram token
         bot, err := tgbotapi.NewBotAPI(os.Getenv("TELEGRAM_BOT_TOKEN"))
