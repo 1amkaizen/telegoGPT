@@ -98,12 +98,7 @@ func main() {
 				bot.Send(msg)
 
 			} else {
-				ctx := context.Background()
-				if conversationContext == "" {
-					prompt = update.Message.Text
-				} else {
-					prompt = conversationContext + update.Message.Text
-				}
+
 				req := gogpt.CompletionRequest{
 					Model:            gogpt.GPT3TextDavinci003,
 					MaxTokens:        150,
