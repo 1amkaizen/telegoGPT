@@ -29,20 +29,11 @@ func main() {
 	u.Timeout = 60
 
 	updates := bot.GetUpdatesChan(u)
-	var history = make(map[int64][]string)
+
 	for update := range updates {
 		//openai api
 		c := gogpt.NewClient(os.Getenv("OPENAI_API"))
 		ctx := context.Background()
-
-		// check if conversation has happened before
-		var prompt string
-		var context string
-		if _, ok := history[update.Message.Chat.ID]; ok {
-			prompt = "You said: " + history[update.Message.Chat.ID][len(history[update.Message.Chat.ID])-1] + " " + update.Message.Text
-		} else {
-			prompt = update.Message.Text
-		}
 		req := gogpt.CompletionRequest{
 			Model:            gogpt.GPT3TextDavinci003,
 			MaxTokens:        150,
@@ -51,13 +42,12 @@ func main() {
 			FrequencyPenalty: 0.0,
 			PresencePenalty:  0.6,
 
-			Prompt: prompt,
+			Prompt: update.Message.Text,
 		}
 		resp, err := c.CreateCompletion(ctx, req)
 		if err != nil {
 			return
 		}
-
 		if update.Message != nil { // jika mendapat pesan
 
 			if update.Message.Text == "/start" {
@@ -85,7 +75,8 @@ func main() {
 					TopP:             1,
 					FrequencyPenalty: 0.0,
 					PresencePenalty:  0.6,
-					Prompt:           "apa yang bisa chatGPT lakukan?",
+
+					Prompt: "apa yang bisa chatGPT lakukan?",
 				}
 				resp, err := c.CreateCompletion(ctx, req)
 				if err != nil {
@@ -98,25 +89,12 @@ func main() {
 				bot.Send(msg)
 
 			} else {
-				req := gogpt.CompletionRequest{
-					Model:            gogpt.GPT3TextDavinci003,
-					MaxTokens:        150,
-					Temperature:      0.9,
-					TopP:             1,
-					FrequencyPenalty: 0.0,
-					PresencePenalty:  0.6,
-					// add context to the prompt
-					Prompt: context + update.Message.Text,
-				}
-				resp, err := c.CreateCompletion(ctx, req)
-				if err != nil {
-					return
-				}
-				context = update.Message.Text
 				msg := tgbotapi.NewMessage(update.Message.Chat.ID, resp.Choices[0].Text)
 				msg.ReplyToMessageID = update.Message.MessageID
+
 				bot.Send(msg)
 			}
+
 		}
 	}
 
