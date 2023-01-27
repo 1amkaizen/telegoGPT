@@ -14,7 +14,7 @@ import (
 
 func main() {
        
-        app := fiber.New(
+	app := fiber.New()
 
         //telegram token
         bot, err := tgbotapi.NewBotAPI(os.Getenv("TELEGRAM_BOT_TOKEN"))
@@ -49,7 +49,7 @@ func main() {
         u.Timeout = 60
 
         updates := bot.GetUpdatesChan(u)
-app.Get("/bot", func(c *fiber.Ctx) {
+	app.Get("/bot", func(c *fiber.Ctx) {
 		updates, err := bot.GetUpdates(tgbotapi.NewUpdate(0))
 		if err != nil {
 			c.Send(err.Error())
