@@ -55,7 +55,7 @@ func main() {
 				log.Printf("ID :%d", update.Message.Chat.ID)
 				log.Printf("Text: %s", update.Message.Text)
 
-				msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Hallo, "+update.Message.From.FirstName+" "+update.Message.From.LastName+"! Selamat datang di bot saya, bagaimana saya bisa membantumu hari ini?")
+				msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Hallo, @"+update.Message.From.FirstName+" "+update.Message.From.LastName+"! Selamat datang di bot saya, bagaimana saya bisa membantumu hari ini?")
 				msg.ReplyToMessageID = update.Message.MessageID
 
 				bot.Send(msg)
