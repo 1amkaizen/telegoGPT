@@ -14,7 +14,7 @@ import (
 
 func main() {
        
-
+        app := fiber.New(
 
         //telegram token
         bot, err := tgbotapi.NewBotAPI(os.Getenv("TELEGRAM_BOT_TOKEN"))
@@ -24,6 +24,11 @@ func main() {
                 fmt.Println("MISSING_TELEGRAM_BOT_TOKEN")
         }
 
+        app.Get("/", func(c *fiber.Ctx) {
+		c.Send("Hello, Telegram bot is running!")
+	})
+                
+                
         bot.Debug = true
         // set log level, timestamp and report caller
         log.SetLevel(log.DebugLevel)
@@ -44,7 +49,18 @@ func main() {
         u.Timeout = 60
 
         updates := bot.GetUpdatesChan(u)
-
+app.Get("/bot", func(c *fiber.Ctx) {
+		updates, err := bot.GetUpdates(tgbotapi.NewUpdate(0))
+		if err != nil {
+			c.Send(err.Error())
+			return
+		}
+		for _, update := range updates {
+			c.Send(update.Message.Text)
+		}
+	})
+                
+                
         for update := range updates {
                 //openai api
                 c := gogpt.NewClient(os.Getenv("OPENAI_API"))
