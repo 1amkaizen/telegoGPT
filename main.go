@@ -78,7 +78,7 @@ func main() {
 				ctx := context.Background()
 				req := gogpt.CompletionRequest{
 					Model:            gogpt.GPT3TextDavinci003,
-					MaxTokens:        150,
+					MaxTokens:        50,
 					Temperature:      0.9,
 					TopP:             1,
 					FrequencyPenalty: 0.0,
