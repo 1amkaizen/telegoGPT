@@ -122,6 +122,6 @@ func main() {
 		}
 	})
 
-	app.Listen("0.0.0.0:$PORT")
+	app.Listen(":$PORT")
 
 }
