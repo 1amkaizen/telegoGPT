@@ -97,7 +97,6 @@ func main() {
 				bot.Send(msg)
 
 			} else {
-				var prompt string
 				if conversationContext == "" {
 					prompt = update.Message.Text
 				} else {
