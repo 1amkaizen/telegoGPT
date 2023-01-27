@@ -34,6 +34,9 @@ func main() {
 
 	updates := bot.GetUpdatesChan(u)
 
+	messages := make(chan string)
+	username := make(chan string)
+
 	go func() {
 		for update := range updates {
 			//openai api
