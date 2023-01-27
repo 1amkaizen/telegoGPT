@@ -88,6 +88,23 @@ func main() {
 
 				bot.Send(msg)
 
+			} else if update.Message.Text == "create image" {
+				ctx := context.Background()
+				req := gogpt.CompletionRequest{
+					N:      2,
+					Size:   "1024x1024",
+					Prompt: update.Message.Text,
+				}
+				resp, err := c.CreateCompletion(ctx, req)
+				if err != nil {
+					return
+				}
+
+				msg := tgbotapi.NewMessage(update.Message.Chat.ID, resp.Choices[0].Text)
+				msg.ReplyToMessageID = update.Message.MessageID
+
+				bot.Send(msg)
+
 			} else {
 				msg := tgbotapi.NewMessage(update.Message.Chat.ID, resp.Choices[0].Text)
 				msg.ReplyToMessageID = update.Message.MessageID
