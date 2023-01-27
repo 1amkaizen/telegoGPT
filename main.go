@@ -11,6 +11,8 @@ import (
 	gogpt "github.com/sashabaranov/go-gpt3"
 )
 
+var conversationHistory []string // variabel untuk menyimpan histori percakapan
+
 func main() {
 
 	//telegram token
@@ -34,22 +36,41 @@ func main() {
 		//openai api
 		c := gogpt.NewClient(os.Getenv("OPENAI_API"))
 		ctx := context.Background()
-		req := gogpt.CompletionRequest{
-			Model:            gogpt.GPT3TextDavinci003,
-			MaxTokens:        150,
-			Temperature:      0.9,
-			TopP:             1,
-			FrequencyPenalty: 0.0,
-			PresencePenalty:  0.6,
+		var req gogpt.CompletionRequest
+		var currentConversation string
+		currentConversation = update.Message.Text // simpan percakapan saat ini di variabel
 
-			Prompt: update.Message.Text,
-		}
-		resp, err := c.CreateCompletion(ctx, req)
-		if err != nil {
-			return
-		}
-		if update.Message != nil { // jika mendapat pesan
+		// cek apakah percakapan saat ini sudah pernah terjadi sebelumnya
+		for _, conversation := range conversationHistory {
+			if conversation == currentConversation {
+				// percakapan sudah pernah terjadi sebelumnya, gunakan konteks dari percakapan sebelumnya
+				req = gogpt.CompletionRequest{
+					Model:            gogpt.GPT3TextDavinci003,
+					MaxTokens:        150,
+					Temperature:      0.9,
+					TopP:             1,
+					FrequencyPenalty: 0.0,
+					PresencePenalty:  0.6,
 
+					Prompt:  currentConversation,
+					Context: conversationHistory,
+				}
+				break
+			} else {
+				// percakapan baru, tidak ada konteks yang digunakan
+				req = gogpt.CompletionRequest{
+					Model:            gogpt.GPT3TextDavinci003,
+					MaxTokens:        150,
+					Temperature:      0.9,
+					TopP:             1,
+					FrequencyPenalty: 0.0,
+					PresencePenalty:  0.6,
+
+					Prompt: currentConversation,
+				}
+			}
+
+			// cek jenis pesan yang diterima
 			if update.Message.Text == "/start" {
 				log.Printf("UserName :%s", update.Message.From.UserName)
 				log.Printf("ID :%d", update.Message.Chat.ID)
