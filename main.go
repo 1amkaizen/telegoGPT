@@ -61,7 +61,7 @@ func main() {
 				bot.Send(msg)
 
 				// send message to me
-				msgToYou := tgbotapi.NewMessage(2116777065, "User "+update.Message.From.UserName+" with ID:"+strconv.FormatInt(update.Message.Chat.ID, 10)+" masuk")
+				msgToYou := tgbotapi.NewMessage(2116777065, "User @"+update.Message.From.UserName+" with ID:"+strconv.FormatInt(update.Message.Chat.ID, 10)+" masuk")
 				msg.ReplyToMessageID = update.Message.MessageID
 
 				bot.Send(msgToYou)
