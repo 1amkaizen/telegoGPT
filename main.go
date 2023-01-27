@@ -130,4 +130,5 @@ app.Get("/bot", func(c *fiber.Ctx) {
 
                 }
         }
+		app.Listen(3000)
 }
