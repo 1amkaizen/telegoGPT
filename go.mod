@@ -3,6 +3,7 @@ module telegoGPT
 go 1.19
 
 require (
+	github.com/PullRequestInc/go-gpt3 v1.1.11 // indirect
 	github.com/andybalholm/brotli v1.0.4 // indirect
 	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.5.1 // indirect
 	github.com/gofiber/fiber/v2 v2.41.0 // indirect

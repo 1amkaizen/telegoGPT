@@ -79,11 +79,11 @@ func main() {
 				ctx := context.Background()
 				req := gogpt.CompletionRequest{
 					Model:            gogpt.GPT3TextDavinci003,
-					MaxTokens:        50,
-					Temperature:      0.9,
-					TopP:             1,
-					FrequencyPenalty: 0.0,
-					PresencePenalty:  0.6,
+					MaxTokens:        60,
+					Temperature:      0.5,
+					TopP:             0.3,
+					FrequencyPenalty: 0.5,
+					PresencePenalty:  0.0,
 
 					Prompt: "apa yang bisa chatGPT lakukan?",
 				}
