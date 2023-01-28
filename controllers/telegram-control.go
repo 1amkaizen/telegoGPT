@@ -85,7 +85,7 @@ func HandleHelpCommand(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	ctx := context.Background()
 	req := gogpt.CompletionRequest{
 		Model:            gogpt.GPT3TextDavinci003,
-		MaxTokens:        60,
+		MaxTokens:        150,
 		Temperature:      0.5,
 		TopP:             0.3,
 		FrequencyPenalty: 0.5,
