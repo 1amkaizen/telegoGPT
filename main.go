@@ -6,7 +6,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/1amkaizen/telegoGPT/controllers"
+	"telegoGPT/controllers"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	gogpt "github.com/sashabaranov/go-gpt3"
