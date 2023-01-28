@@ -59,6 +59,8 @@ func SendMessage(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 }
 
 func HandleStartCommand(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
+	c := gogpt.NewClient(os.Getenv("OPENAI_API"))
+
 	ctx := context.Background()
 	req := gogpt.CompletionRequest{
 		Model:            gogpt.GPT3TextDavinci003,
