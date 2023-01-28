@@ -18,8 +18,8 @@ func AccessOpenAIAPI(prompt string) (string, error) {
 	req := gogpt.CompletionRequest{
 		Model:            gogpt.GPT3TextDavinci003,
 		MaxTokens:        150,
-		Temperature:      0.9,
-		TopP:             1,
+		Temperature:      0.7,
+		TopP:             0.9,
 		FrequencyPenalty: 0.0,
 		PresencePenalty:  0.6,
 
