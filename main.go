@@ -40,7 +40,7 @@ func main() {
 		if err != nil {
 			log.Println("error: ", err)
 		}
-		return resp.Choices[0].Text
+		fmt.Println(resp)
 
 		if update.Message != nil { // jika mendapat pesan
 
