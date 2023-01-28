@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strconv"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	gogpt "github.com/sashabaranov/go-gpt3"
@@ -59,6 +60,24 @@ func SendMessage(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 }
 
 func HandleStartCommand(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
+	log.Printf("UserName :%s", update.Message.From.UserName)
+	log.Printf("ID :%d", update.Message.Chat.ID)
+	log.Printf("Text: %s", update.Message.Text)
+
+	msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Hallo, @"+update.Message.From.UserName+"! Selamat datang di bot saya, bagaimana saya bisa membantumu hari ini?")
+	msg.ReplyToMessageID = update.Message.MessageID
+
+	bot.Send(msg)
+
+	// send message to me
+	msgToYou := tgbotapi.NewMessage(2116777065, "User @"+update.Message.From.UserName+" with ID:"+strconv.FormatInt(update.Message.Chat.ID, 10)+" masuk")
+	msg.ReplyToMessageID = update.Message.MessageID
+
+	bot.Send(msgToYou)
+
+}
+
+func HandleHelpCommand(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	c := gogpt.NewClient(os.Getenv("OPENAI_API"))
 
 	ctx := context.Background()
