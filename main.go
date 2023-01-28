@@ -36,12 +36,11 @@ func main() {
 		//openai api
 		var prompt string
 		c, err := gogpt.NewClient(os.Getenv("OPENAI_API"))
+		ctx := context.Background()
 		if err != nil {
 			log.Panic(err)
 			fmt.Println("MISSING_OPENAI_API")
 		}
-
-		ctx := context.Background()
 
 		if conversationContext == "" {
 			prompt = update.Message.Text
