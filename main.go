@@ -33,8 +33,7 @@ func main() {
 	updates := bot.GetUpdatesChan(u)
 
 	for update := range updates {
-		//openai api
-		var prompt string
+		// Autentikasi API OpenAI
 		c, err := gogpt.NewClient(os.Getenv("OPENAI_API"))
 		ctx := context.Background()
 		if err != nil {
@@ -42,6 +41,7 @@ func main() {
 			fmt.Println("MISSING_OPENAI_API")
 		}
 
+		var prompt string
 		if conversationContext == "" {
 			prompt = update.Message.Text
 		} else {
@@ -59,8 +59,10 @@ func main() {
 		}
 		resp, err := c.CreateCompletion(ctx, req)
 		if err != nil {
+			log.Println(err)
 			return
 		}
+
 		if update.Message != nil { // jika mendapat pesan
 
 			if update.Message.Text == "/start" {
