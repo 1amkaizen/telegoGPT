@@ -40,7 +40,6 @@ func main() {
 		if err != nil {
 			log.Println("error: ", err)
 		}
-		fmt.Println(resp)
 
 		if update.Message != nil { // jika mendapat pesan
 
