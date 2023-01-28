@@ -36,7 +36,7 @@ func main() {
 		} else {
 			prompt = conversationContext + update.Message.Text
 		}
-		response, err := controllers.AccessOpenAIAPI(prompt)
+		resp, err := controllers.AccessOpenAIAPI(prompt)
 		if err != nil {
 			log.Println("error: ", err)
 		}
