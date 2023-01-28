@@ -35,7 +35,12 @@ func main() {
 	for update := range updates {
 		//openai api
 		var prompt string
-		c := gogpt.NewClient(os.Getenv("OPENAI_API"))
+		c, err := gogpt.NewClient(os.Getenv("OPENAI_API"))
+		if err != nil {
+			log.Panic(err)
+			fmt.Println("MISSING_OPENAI_API")
+		}
+
 		ctx := context.Background()
 
 		if conversationContext == "" {
