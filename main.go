@@ -5,7 +5,8 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"telegoGPT/controllers"
+
+	"github.com/1amkaizen/telegoGPT/controllers"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	gogpt "github.com/sashabaranov/go-gpt3"
@@ -63,26 +64,7 @@ func main() {
 				controllers.HandleStartCommand(bot, update)
 
 			} else if update.Message.Text == "/help" {
-				ctx := context.Background()
-				req := gogpt.CompletionRequest{
-					Model:            gogpt.GPT3TextDavinci003,
-					MaxTokens:        60,
-					Temperature:      0.5,
-					TopP:             0.3,
-					FrequencyPenalty: 0.5,
-					PresencePenalty:  0.0,
-
-					Prompt: "apa yang bisa chatGPT lakukan?",
-				}
-				resp, err := c.CreateCompletion(ctx, req)
-				if err != nil {
-					return
-				}
-
-				msg := tgbotapi.NewMessage(update.Message.Chat.ID, resp.Choices[0].Text)
-				msg.ReplyToMessageID = update.Message.MessageID
-
-				bot.Send(msg)
+				controllers.HandleHelpCommand(bot, update)
 
 			} else {
 				controllers.SendMessage(bot, update)
