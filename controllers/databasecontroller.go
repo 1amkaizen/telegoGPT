@@ -2,8 +2,8 @@ package controllers
 
 import (
 	"net/http"
-	"telegoGPT/models"
 
+	"github.com/1amkaizen/telegoGPT/models"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -20,10 +20,4 @@ func GetDataFromTelegramBot(c *fiber.Ctx) error {
 
 	// Kembalikan data dalam bentuk JSON
 	return c.JSON(data)
-}
-
-func getDataFromTelegramBotDB() (interface{}, error) {
-	// Logic untuk mengambil data dari database
-	// Sudah digantikan oleh baris pada function GetDataFromTelegramBot
-	return nil, nil
 }
