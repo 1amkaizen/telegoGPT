@@ -11,7 +11,6 @@ import (
 )
 
 func main() {
-
 	//telegram token
 	bot, err := tgbotapi.NewBotAPI(os.Getenv("TELEGRAM_BOT_TOKEN"))
 
@@ -30,6 +29,7 @@ func main() {
 		if update.Message != nil { // jika mendapat pesan
 
 			if update.Message.Text == "/start" {
+
 				controllers.HandleStartCommand(bot, update)
 
 			} else if update.Message.Text == "/help" {
@@ -42,6 +42,4 @@ func main() {
 
 		}
 	}
-	h
-	Server()
 }

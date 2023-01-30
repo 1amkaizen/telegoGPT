@@ -47,12 +47,12 @@ func SetupBot() (*tgbotapi.BotAPI, error) {
 }
 
 func SendMessage(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
-	log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
 	response, err := AccessOpenAIAPI(update.Message.Text)
 	if err != nil {
 		log.Println(err)
 		return
 	}
+	log.Printf("[%s] %s %s", update.Message.From.UserName, update.Message.Text, response)
 
 	msg := tgbotapi.NewMessage(update.Message.Chat.ID, response)
 	msg.ReplyToMessageID = update.Message.MessageID
