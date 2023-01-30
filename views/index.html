@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Data User</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+{{ if .alert }}
+      <script>
+        alert("{{ .alert }}");
+      </script>
+      {{ end }}
+  <h1>Data Buku</h1>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>UserID</th>
+      <th>UserName</th>
+         </tr>
+    {{ range .user }}
+    <tr>
+      <td>{{ .Id }}</td>
+      <td>{{ .UserID }}</td>
+      <td>{{ .UserName }}</td>
+    </tr>
+    {{ end }}
+  </table>
+</body>
+</html>
+

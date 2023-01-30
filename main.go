@@ -42,5 +42,6 @@ func main() {
 
 		}
 	}
-
+	h
+	Server()
 }
