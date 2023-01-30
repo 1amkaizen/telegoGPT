@@ -1,4 +1,4 @@
-module telegoGPT
+module github.com/1amkaizen/telegoGPT
 
 go 1.19
 

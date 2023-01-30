@@ -2,8 +2,8 @@ package controllers
 
 import (
 	"net/http"
-	"telegoGPT/models"
 
+	"github.com/1amkaizen/telegoGPT/models"
 	"github.com/gofiber/fiber/v2"
 )
 
