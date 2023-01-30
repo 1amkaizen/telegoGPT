@@ -30,5 +30,6 @@ Gunakan kunci API Telegram untuk membuat instance bot baru.
 <a href="https://t.me/namamu_bot"><img src="https://img.shields.io/badge/telegoGPT-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white" />
 
 ## follow
-<a href="https://twitter.com/1amkaizen"><img src="https://img.shields.io/badge/1amkaizen-2CA5E0?style=for-the-badge&logo=twitter&logoColor=white" />
-<a href="https://replit.com/@1amkaizen?tab=status"><img src="https://img.shields.io/badge/1amkaizen-ff5722?style=for-the-badge&logo=replit&logoColor=white" />
+<a href="https://twitter.com/1amkaizen"><img src="https://img.shields.io/badge/Twitter-2CA5E0?style=for-the-badge&logo=twitter&logoColor=white" />
+<a href="https://replit.com/@1amkaizen?tab=status"><img src="https://img.shields.io/badge/Replit-ff5722?style=for-the-badge&logo=replit&logoColor=white" />
+<a href="https://railway.app?referralCode=v-jhtw"><img src="https://img.shields.io/badge/Railway-ff5722?style=for-the-badge&logo=railway&logoColor=white" />
