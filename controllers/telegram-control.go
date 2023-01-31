@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"strconv"
+	"time"
 
 	"github.com/1amkaizen/telegoGPT/models"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
@@ -65,7 +66,6 @@ func HandleStartCommand(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	log.Printf("UserName :%s", update.Message.From.UserName)
 	log.Printf("ID :%d", update.Message.Chat.ID)
 	log.Printf("Text: %s", update.Message.Text)
-	log.Printf("Text: %d", update.Message.Date)
 
 	msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Hallo, @"+update.Message.From.UserName+"! Selamat datang di bot saya, bagaimana saya bisa membantumu hari ini?")
 	msg.ReplyToMessageID = update.Message.MessageID
@@ -84,6 +84,7 @@ func HandleStartCommand(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 		UserName:  update.Message.From.UserName,
 		FirstName: update.Message.From.FirstName,
 		LastName:  update.Message.From.LastName,
+		StartDate: time.Now(),
 	}
 
 	var existingUser models.Users
