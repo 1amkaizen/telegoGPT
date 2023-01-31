@@ -6,7 +6,6 @@ import (
 	"log"
 	"os"
 	"strconv"
-	"time"
 
 	"github.com/1amkaizen/telegoGPT/models"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
@@ -19,7 +18,7 @@ func AccessOpenAIAPI(prompt string) (string, error) {
 
 	req := gogpt.CompletionRequest{
 		Model:            gogpt.GPT3TextDavinci003,
-		MaxTokens:        150,
+		MaxTokens:        250,
 		Temperature:      0.9,
 		TopP:             1,
 		FrequencyPenalty: 0.0,
@@ -60,6 +59,7 @@ func SendMessage(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	msg.ReplyToMessageID = update.Message.MessageID
 
 	bot.Send(msg)
+
 }
 
 func HandleStartCommand(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
@@ -80,10 +80,8 @@ func HandleStartCommand(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 
 	// Add user to database
 	user := &models.Users{
-		UserID:    strconv.FormatInt(update.Message.Chat.ID, 10),
-		UserName:  update.Message.From.UserName,
-		Message:   update.Message.Text,
-		StartDate: time.Now(),
+		UserID:   strconv.FormatInt(update.Message.Chat.ID, 10),
+		UserName: update.Message.From.UserName,
 	}
 
 	var existingUser models.Users
