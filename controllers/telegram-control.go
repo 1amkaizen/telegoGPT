@@ -73,7 +73,10 @@ func HandleStartCommand(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	bot.Send(msg)
 
 	// send message to me
-	msgToYou := tgbotapi.NewMessage(2116777065, "User @"+update.Message.From.UserName+" with ID:"+strconv.FormatInt(update.Message.Chat.ID, 10)+" masuk")
+	myID := os.Getenv("SECRET")
+	myID64, _ := strconv.ParseInt(myID, 10, 64)
+	msgToYou := tgbotapi.NewMessage(myID64, "User @"+update.Message.From.UserName+" with ID:"+strconv.FormatInt(update.Message.Chat.ID, 10)+" masuk")
+
 	msg.ReplyToMessageID = update.Message.MessageID
 
 	bot.Send(msgToYou)
