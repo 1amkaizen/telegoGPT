@@ -8,7 +8,7 @@ import (
 var DB *gorm.DB
 
 func ConnectDatabase() {
-	db, err := gorm.Open(mysql.Open("root:root@tcp(localhost:3306)/telegoGPT"))
+	db, err := gorm.Open(mysql.Open("root:root@tcp(containers-us-west-8.railway.app:7551)/telegoGPT"))
 	if err != nil {
 		panic(err)
 	}
