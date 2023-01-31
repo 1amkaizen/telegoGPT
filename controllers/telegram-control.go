@@ -82,8 +82,6 @@ func HandleStartCommand(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	user := &models.Users{
 		UserID:    strconv.FormatInt(update.Message.Chat.ID, 10),
 		UserName:  update.Message.From.UserName,
-		FirstName: update.Message.From.FirstName,
-		LastName:  update.Message.From.LastName,
 		StartDate: time.Now(),
 	}
 
