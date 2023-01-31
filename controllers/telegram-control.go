@@ -84,7 +84,22 @@ func HandleStartCommand(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 		UserName: update.Message.From.UserName,
 	}
 
+	var existingUser models.Users
+	if err := models.DB.Where("user_id = ?", user.UserID).First(&existingUser).Error; err == nil {
+		fmt.Println("User sudah terdaftar")
+		return
+	}
+
+	if err := models.DB.Create(user).Error; err != nil {
+		fmt.Println("Gagal menyimpan data user")
+		return
+	}
+
 	models.DB.Create(user)
+
+	var userFromDB models.Users
+	models.DB.First(&userFromDB, "user_id = ?", user.UserID)
+	log.Println("User from database:", userFromDB)
 
 }
 

@@ -6,10 +6,13 @@ import (
 	"os"
 
 	"github.com/1amkaizen/telegoGPT/controllers"
+	"github.com/1amkaizen/telegoGPT/models"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
 func main() {
+	models.ConnectDatabase()
+
 	//telegram token
 	bot, err := tgbotapi.NewBotAPI(os.Getenv("TELEGRAM_BOT_TOKEN"))
 
