@@ -7,6 +7,7 @@ import (
 	"os"
 	"strconv"
 
+	"github.com/1amkaizen/telegoGPT/models"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	gogpt "github.com/sashabaranov/go-gpt3"
 )
@@ -76,6 +77,14 @@ func HandleStartCommand(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	msg.ReplyToMessageID = update.Message.MessageID
 
 	bot.Send(msgToYou)
+
+	// Add user to database
+	user := &models.Users{
+		UserID:   strconv.FormatInt(update.Message.Chat.ID, 10),
+		UserName: update.Message.From.UserName,
+	}
+
+	models.DB.Create(user)
 
 }
 
