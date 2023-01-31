@@ -62,6 +62,11 @@ func SendMessage(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 }
 
 func HandleStartCommand(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
+	response, err := AccessOpenAIAPI(update.Message.Text)
+	if err != nil {
+		log.Println(err)
+		return
+	}
 
 	log.Printf("UserName :%s", update.Message.From.UserName)
 	log.Printf("ID :%d", update.Message.Chat.ID)
@@ -82,6 +87,8 @@ func HandleStartCommand(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	user := &models.Users{
 		UserID:   strconv.FormatInt(update.Message.Chat.ID, 10),
 		UserName: update.Message.From.UserName,
+		Message:  update.Message.Text,
+		Reply:    response,
 	}
 
 	var existingUser models.Users
