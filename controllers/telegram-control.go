@@ -83,6 +83,7 @@ func HandleStartCommand(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 		UserName:  update.Message.From.UserName,
 		FirstName: update.Message.From.FirstName,
 		LastName:  update.Message.From.LastName,
+		StartDate: update.Message.Text,
 	}
 
 	var existingUser models.Users
