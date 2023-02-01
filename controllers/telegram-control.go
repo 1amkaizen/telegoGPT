@@ -67,9 +67,25 @@ func HandleStartCommand(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	log.Printf("ID :%d", update.Message.Chat.ID)
 	log.Printf("Text: %s", update.Message.Text)
 
+	// button
+	twitterButton := tgbotapi.NewInlineKeyboardButtonData("Twitter🐦", "twitter")
+	githubButton := tgbotapi.NewInlineKeyboardButtonData("Github🐙", "github")
+	railwayButton := tgbotapi.NewInlineKeyboardButtonData("Railway🚂", "railway")
+	replitButton := tgbotapi.NewInlineKeyboardButtonData("Replit🚀", "replit")
+	keyboard := tgbotapi.NewInlineKeyboardMarkup(
+		tgbotapi.NewInlineKeyboardRow(
+			twitterButton,
+			githubButton,
+		),
+		tgbotapi.NewInlineKeyboardRow(
+			railwayButton,
+			replitButton,
+		),
+	)
+
 	msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Hallo, @"+update.Message.From.UserName+"! Selamat datang di bot saya, bagaimana saya bisa membantumu hari ini?")
 	msg.ReplyToMessageID = update.Message.MessageID
-
+	msg.ReplyMarkup = keyboard
 	bot.Send(msg)
 
 	// send message to me

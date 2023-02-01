@@ -42,6 +42,29 @@ func main() {
 
 			}
 
+		} else if update.CallbackQuery != nil {
+			switch update.CallbackQuery.Data {
+			case "twitter":
+				// Tambahkan logika Anda di sini untuk menangani aksi yang dilakukan saat tombol diklik
+				msg := tgbotapi.NewMessage(update.CallbackQuery.Message.Chat.ID, "https://twitter.com/1amkaizen")
+				bot.Send(msg)
+			case "github":
+				// Tambahkan logika Anda di sini untuk menangani aksi yang dilakukan saat tombol diklik
+				msg := tgbotapi.NewMessage(update.CallbackQuery.Message.Chat.ID, "https://github.com/1amkaizen/")
+				bot.Send(msg)
+			case "railway":
+				// Tambahkan logika Anda di sini untuk menangani aksi yang dilakukan saat tombol diklik
+				msg := tgbotapi.NewMessage(update.CallbackQuery.Message.Chat.ID, "https://railway.app?referralCode=v-jhtw")
+				bot.Send(msg)
+			case "replit":
+				// Tambahkan logika Anda di sini untuk menangani aksi yang dilakukan saat tombol diklik
+				msg := tgbotapi.NewMessage(update.CallbackQuery.Message.Chat.ID, "https://replit.com/@1amkaizen")
+				bot.Send(msg)
+
+			default:
+				// Tambahkan logika Anda di sini untuk menangani aksi default jika tidak ada yang sesuai dengan callback.Data
+			}
 		}
+
 	}
 }
