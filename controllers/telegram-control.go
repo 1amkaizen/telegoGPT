@@ -83,6 +83,7 @@ func HandleStartCommand(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 		),
 	)
 
+	
 	msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Hallo, @"+update.Message.From.UserName+"! Selamat datang di bot saya, bagaimana saya bisa membantumu hari ini?")
 	msg.ReplyToMessageID = update.Message.MessageID
 	msg.ReplyMarkup = keyboard
