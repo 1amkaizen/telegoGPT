@@ -1,8 +1,7 @@
 package controllers
 
 import (
-	"encoding/json"
-        "net/http"
+	
 	"context"
 	"fmt"
 	"log"
@@ -152,15 +151,3 @@ func HandleHelpCommand(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 }
 
 
-func GetMessages(w http.ResponseWriter, r *http.Request) {
-    var messages []models.Messages
-    if err := models.DB.Find(&messages).Error; err != nil {
-        // Handle error
-        http.Error(w, err.Error(), http.StatusInternalServerError)
-        return
-    }
-
-    // Kirim data sebagai respons JSON
-    w.Header().Set("Content-Type", "application/json")
-    json.NewEncoder(w).Encode(messages)
-}
