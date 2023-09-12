@@ -84,4 +84,7 @@ http.HandleFunc("/get-messages", func(w http.ResponseWriter, r *http.Request) {
 		}
 
 	}
+	go func() {
+    log.Fatal(http.ListenAndServe(":5616", nil))
+}()
 }
