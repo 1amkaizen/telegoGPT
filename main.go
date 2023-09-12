@@ -73,7 +73,5 @@ func main() {
 		}
 
 	}
-	go func() {
-    log.Fatal(http.ListenAndServe(":5616", nil))
-}()
+	
 }
