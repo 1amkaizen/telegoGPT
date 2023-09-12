@@ -1,6 +1,8 @@
 package main
 
 import (
+	"encoding/json"
+         "net/http"
 	"fmt"
 	"log"
 	"os"
@@ -29,7 +31,7 @@ func main() {
 
 http.HandleFunc("/get-messages", func(w http.ResponseWriter, r *http.Request) {
     // Panggil fungsi GetMessages dari controller
-    messages, err := controllers.GetMessages()
+    messages, err := controllers.GetMessages(w, r) // sertakan w dan r sebagai parameter
     if err != nil {
         http.Error(w, err.Error(), http.StatusInternalServerError)
         return
@@ -39,7 +41,6 @@ http.HandleFunc("/get-messages", func(w http.ResponseWriter, r *http.Request) {
     w.Header().Set("Content-Type", "application/json")
     json.NewEncoder(w).Encode(messages)
 })
-
 
 	
 	for update := range updates {
