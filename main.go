@@ -25,6 +25,23 @@ func main() {
 	u.Timeout = 60
 
 	updates := bot.GetUpdatesChan(u)
+
+
+http.HandleFunc("/get-messages", func(w http.ResponseWriter, r *http.Request) {
+    // Panggil fungsi GetMessages dari controller
+    messages, err := controllers.GetMessages()
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
+    }
+
+    // Kirim data sebagai respons JSON
+    w.Header().Set("Content-Type", "application/json")
+    json.NewEncoder(w).Encode(messages)
+})
+
+
+	
 	for update := range updates {
 
 		//openai api
