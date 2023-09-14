@@ -75,36 +75,10 @@ func main() {
 		}
 
 	}
-	// Inisialisasi router HTTP
-    http.HandleFunc("/get-messages", getMessagesHandler)
-
-    // Mulai server Anda
-    http.ListenAndServe(":8080", nil)
-
-
+	
 	
 
 	
-}
-
-
-func getMessagesHandler(w http.ResponseWriter, r *http.Request) {
-    // Ambil data percakapan dari database
-    var messages []models.Messages
-    models.DB.Find(&messages)
-
-    // Konversi data percakapan menjadi format JSON
-    jsonData, err := json.Marshal(messages)
-    if err != nil {
-        http.Error(w, err.Error(), http.StatusInternalServerError)
-        return
-    }
-
-    // Set header response sebagai JSON
-    w.Header().Set("Content-Type", "application/json")
-
-    // Kirim data JSON sebagai respons
-    w.Write(jsonData)
 }
 
 
