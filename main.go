@@ -12,9 +12,6 @@ import (
 
 
 
-
-
-
 func main() {
 
 	models.ConnectDatabase()
