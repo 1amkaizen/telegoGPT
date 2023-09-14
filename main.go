@@ -16,28 +16,72 @@ import (
 
 
 
+// Tambahkan variabel global untuk menyimpan log percakapan
+var conversationLogs []controllers.ConversationLog
+
+// Handler untuk menampilkan log percakapan dalam HTML
+func logHandler(w http.ResponseWriter, r *http.Request) {
+    // Gunakan template HTML untuk menampilkan log percakapan
+    tmpl := `
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Log Percakapan</title>
+    </head>
+    <body>
+        <h1>Log Percakapan</h1>
+        <table>
+            <tr>
+                <th>Waktu</th>
+                <th>Pengirim</th>
+                <th>Pesan</th>
+            </tr>
+            {{range .}}
+            <tr>
+                <td>{{.Timestamp}}</td>
+                <td>{{.Sender}}</td>
+                <td>{{.Message}}</td>
+            </tr>
+            {{end}}
+        </table>
+    </body>
+    </html>
+    `
+
+    // Buat instance template
+    tmpl, err := template.New("log").Parse(tmpl)
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
+    }
+
+    // Kirim data log ke template dan tampilkan dalam HTML
+    if err := tmpl.Execute(w, conversationLogs); err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
+    }
+}
 
 func main() {
+    models.ConnectDatabase()
 
-	models.ConnectDatabase()
+    //telegram token
+    bot, err := tgbotapi.NewBotAPI(os.Getenv("TELEGRAM_BOT_TOKEN"))
 
-	//telegram token
-	bot, err := tgbotapi.NewBotAPI(os.Getenv("TELEGRAM_BOT_TOKEN"))
+    if err != nil {
+        log.Panic(err)
+        fmt.Println("MISSING_TELEGRAM_BOT_TOKEN")
+    }
 
-	if err != nil {
-		log.Panic(err)
-		fmt.Println("MISSING_TELEGRAM_BOT_TOKEN")
-	}
+    u := tgbotapi.NewUpdate(0)
+    u.Timeout = 60
 
-	u := tgbotapi.NewUpdate(0)
-	u.Timeout = 60
+    updates := bot.GetUpdatesChan(u)
 
-	updates := bot.GetUpdatesChan(u)
+    // Atur handler untuk menampilkan log
+    http.HandleFunc("/log", logHandler)
 
-
-
-	
-	for update := range updates {
+    for update := range updates {
 
 		//openai api
 		if update.Message != nil { // jika mendapat pesan
@@ -77,13 +121,4 @@ func main() {
 				// Tambahkan logika Anda di sini untuk menangani aksi default jika tidak ada yang sesuai dengan callback.Data
 			}
 		}
-
-	}
-	
-	
-
-	
 }
-
-
-
