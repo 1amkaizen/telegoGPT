@@ -18,13 +18,12 @@ import (
 func UserConversationHandler(w http.ResponseWriter, r *http.Request) {
     // Di sini, Anda perlu mengambil data pengguna dan percakapan dari database Anda.
     // Gantilah kode berikut ini dengan logika yang sesuai untuk mengambil data tersebut.
-    userData := []models.UserData{}      // Ganti dengan model data pengguna Anda
-    conversationData := []models.Message{} // Ganti dengan model data percakapan Anda
+     // Ganti dengan model data percakapan Anda
 
     // Menggabungkan data pengguna dan percakapan ke dalam struktur data yang sesuai
     data := struct {
-        Users       []models.UserData
-        Conversations []models.Message
+        Users       []models.Users
+        Conversations []models.Messages
     }{
         Users:       userData,
         Conversations: conversationData,
