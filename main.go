@@ -14,14 +14,6 @@ import (
 
 func main() {
 
-// Inisialisasi router HTTP
-    http.HandleFunc("/get-messages", getMessagesHandler)
-
-    // Mulai server Anda
-    http.ListenAndServe(":8080", nil)
-
-
-	
 	models.ConnectDatabase()
 
 	//telegram token
@@ -83,6 +75,15 @@ func main() {
 		}
 
 	}
+	// Inisialisasi router HTTP
+    http.HandleFunc("/get-messages", getMessagesHandler)
+
+    // Mulai server Anda
+    http.ListenAndServe(":8080", nil)
+
+
+	
+
 	
 }
 
