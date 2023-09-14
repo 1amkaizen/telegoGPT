@@ -16,51 +16,6 @@ import (
 
 
 
-// Tambahkan variabel global untuk menyimpan log percakapan
-var conversationLogs []controllers.ConversationLog
-
-// Handler untuk menampilkan log percakapan dalam HTML
-func logHandler(w http.ResponseWriter, r *http.Request) {
-    // Gunakan template HTML untuk menampilkan log percakapan
-    tmpl := `
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title>Log Percakapan</title>
-    </head>
-    <body>
-        <h1>Log Percakapan</h1>
-        <table>
-            <tr>
-                <th>Waktu</th>
-                <th>Pengirim</th>
-                <th>Pesan</th>
-            </tr>
-            {{range .}}
-            <tr>
-                <td>{{.Timestamp}}</td>
-                <td>{{.Sender}}</td>
-                <td>{{.Message}}</td>
-            </tr>
-            {{end}}
-        </table>
-    </body>
-    </html>
-    `
-
-    // Buat instance template
-    tmpl, err := template.New("log").Parse(tmpl)
-    if err != nil {
-        http.Error(w, err.Error(), http.StatusInternalServerError)
-        return
-    }
-
-    // Kirim data log ke template dan tampilkan dalam HTML
-    if err := tmpl.Execute(w, conversationLogs); err != nil {
-        http.Error(w, err.Error(), http.StatusInternalServerError)
-        return
-    }
-}
 
 func main() {
     models.ConnectDatabase()
@@ -123,19 +78,5 @@ func main() {
 
 
 
-	    // Atur handler untuk menampilkan log
-http.HandleFunc("/log", logHandler)
-
-// Mulai server HTTP pada port tertentu
-go func() {
-    port := os.Getenv("PORT") // Port yang Anda dapatkan dari platform hosting
-    if port == "" {
-        port = "8080" // Port default jika tidak ada PORT yang diberikan
-    }
-
-    log.Printf("Server HTTP berjalan pada port %s", port)
-    if err := http.ListenAndServe(":"+port, nil); err != nil {
-        log.Fatal(err)
-    }
-}()
+	    
 }
