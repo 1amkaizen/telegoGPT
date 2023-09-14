@@ -7,12 +7,33 @@ import (
 	"log"
 	"os"
 	"strconv"
+	    "encoding/json"
+    "net/http"
 	
 
 	"github.com/1amkaizen/telegoGPT/models"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	gogpt "github.com/sashabaranov/go-gpt3"
 )
+
+
+
+func LogMessage(userID, message, botReply string) {
+   logEntry := MessageLog{
+       UserID:   userID,
+       Message:  message,
+       BotReply: botReply,
+   }
+
+   // Mengirim data log ke endpoint di proyek pemantauan
+   jsonBody, _ := json.Marshal(logEntry)
+   _, err := http.Post("http://localhost:8080/add-log", "application/json", bytes.NewBuffer(jsonBody))
+   if err != nil {
+       // Handle error
+       log.Println("Failed to send log:", err)
+   }
+}
+
 
 
 
@@ -59,19 +80,6 @@ func SendMessage(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
   return
  }
  log.Printf("[%s] %s %s", update.Message.From.UserName, update.Message.Text, response)
-
-
-// Simpan pesan ke dalam database
-    message := &models.Messages{
-        UserID:    strconv.FormatInt(update.Message.Chat.ID, 10),
-        MessageID: int64(update.Message.MessageID),
-        Message:   update.Message.Text,
-        Reply:     response,
-    }
-    if err := models.DB.Create(message).Error; err != nil {
-        log.Println("Gagal menyimpan pesan dalam database")
-        return
-    }
 
 	
  msg := tgbotapi.NewMessage(update.Message.Chat.ID, response)
