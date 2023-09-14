@@ -7,10 +7,7 @@ import (
 	"log"
 	"os"
 	"strconv"
-	    "encoding/json"
-    "net/http"
-	    "bytes"
-	
+	    
 
 	"github.com/1amkaizen/telegoGPT/models"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
@@ -19,21 +16,7 @@ import (
 
 
 
-func LogMessage(userID, message, botReply string) {
-   logEntry := MessageLog{
-       UserID:   userID,
-       Message:  message,
-       BotReply: botReply,
-   }
 
-   // Mengirim data log ke endpoint di proyek pemantauan
-   jsonBody, _ := json.Marshal(logEntry)
-   _, err := http.Post("http://localhost:8080/add-log", "application/json", bytes.NewBuffer(jsonBody))
-   if err != nil {
-       // Handle error
-       log.Println("Failed to send log:", err)
-   }
-}
 
 
 
