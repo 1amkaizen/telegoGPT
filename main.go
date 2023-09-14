@@ -4,9 +4,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-"net/http"
-    
-    "encoding/json"
 	"github.com/1amkaizen/telegoGPT/controllers"
 	"github.com/1amkaizen/telegoGPT/models"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
@@ -35,41 +32,7 @@ func main() {
 
 	updates := bot.GetUpdatesChan(u)
 
-// Tentukan port yang akan digunakan oleh server HTTP Anda
-serverPort := "8080"
 
-// Buat handler untuk menyajikan halaman HTML
-http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-    http.ServeFile(w, r, "index.html")
-})
-// Menambahkan endpoint HTTP untuk mengambil data pesan dari database
-    http.HandleFunc("/get-messages", func(w http.ResponseWriter, r *http.Request) {
-        // Ambil data pesan dari database (mungkin menggunakan query database)
-        var messages []models.Messages
-        if err := models.DB.Find(&messages).Error; err != nil {
-            http.Error(w, err.Error(), http.StatusInternalServerError)
-            return
-        }
-
-        // Konversi data pesan ke JSON dan kirimkannya sebagai respons
-        response, err := json.Marshal(messages)
-        if err != nil {
-            http.Error(w, err.Error(), http.StatusInternalServerError)
-            return
-        }
-
-        w.Header().Set("Content-Type", "application/json")
-        w.Write(response)
-    })
-// Mulai server HTTP Anda
-go func() {
-    log.Printf("Server is running on port %s...\n", serverPort)
-    err := http.ListenAndServe(":"+serverPort, nil)
-    if err != nil {
-        log.Fatal("Server error:", err)
-    }
-}()
-    // ... kode lainnya ...
 	
 
 	
@@ -117,13 +80,6 @@ go func() {
 	}
 	
 	
-// Mulai server HTTP Anda
-go func() {
-    log.Printf("Server is running on port %s...\n", serverPort)
-    err := http.ListenAndServe(":"+serverPort, nil)
-    if err != nil {
-        log.Fatal("Server error:", err)
-    }
-}()
+
 	
 }
