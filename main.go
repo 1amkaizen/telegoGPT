@@ -78,8 +78,7 @@ func main() {
 
     updates := bot.GetUpdatesChan(u)
 
-    // Atur handler untuk menampilkan log
-    http.HandleFunc("/log", logHandler)
+    
 
     for update := range updates {
 
