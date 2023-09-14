@@ -117,6 +117,13 @@ go func() {
 	}
 	
 	
-
+// Mulai server HTTP Anda
+go func() {
+    log.Printf("Server is running on port %s...\n", serverPort)
+    err := http.ListenAndServe(":"+serverPort, nil)
+    if err != nil {
+        log.Fatal("Server error:", err)
+    }
+}()
 	
 }
