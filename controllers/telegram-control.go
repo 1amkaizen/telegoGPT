@@ -7,9 +7,7 @@ import (
 	"log"
 	"os"
 	"strconv"
-	"encoding/json"
-        "net/http"
-	    
+	
 
 	"github.com/1amkaizen/telegoGPT/models"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
