@@ -13,6 +13,15 @@ import (
 	gogpt "github.com/sashabaranov/go-gpt3"
 )
 
+
+// ConversationLog adalah struktur data untuk menyimpan log percakapan
+type ConversationLog struct {
+    Sender    string
+    Message   string
+    Timestamp time.Time
+}
+
+
 func AccessOpenAIAPI(prompt string) (string, error) {
 	c := gogpt.NewClient(os.Getenv("OPENAI_API"))
 	ctx := context.Background()
@@ -48,19 +57,26 @@ func SetupBot() (*tgbotapi.BotAPI, error) {
 	return bot, nil
 }
 
-func SendMessage(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
-	response, err := AccessOpenAIAPI(update.Message.Text)
-	if err != nil {
-		log.Println(err)
-		return
-	}
-	log.Printf("[%s] %s %s", update.Message.From.UserName, update.Message.Text, response)
+func SendMessage(bot *tgbotapi.BotAPI, update tgbotapi.Update, conversationLogs *[]ConversationLog) {
+    response, err := AccessOpenAIAPI(update.Message.Text)
+    if err != nil {
+        log.Println(err)
+        return
+    }
+    log.Printf("[%s] %s %s", update.Message.From.UserName, update.Message.Text, response)
 
-	msg := tgbotapi.NewMessage(update.Message.Chat.ID, response)
-	msg.ReplyToMessageID = update.Message.MessageID
+    // Simpan log percakapan
+    logEntry := ConversationLog{
+        Sender:    update.Message.From.UserName,
+        Message:   update.Message.Text,
+        Timestamp: time.Now(),
+    }
+    *conversationLogs = append(*conversationLogs, logEntry)
 
-	bot.Send(msg)
+    msg := tgbotapi.NewMessage(update.Message.Chat.ID, response)
+    msg.ReplyToMessageID = update.Message.MessageID
 
+    bot.Send(msg)
 }
 
 func HandleStartCommand(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
