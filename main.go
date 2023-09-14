@@ -25,8 +25,8 @@ func UserConversationHandler(w http.ResponseWriter, r *http.Request) {
         Users       []models.Users
         Conversations []models.Messages
     }{
-        Users:       userData,
-        Conversations: conversationData,
+        Users:       users,
+        Conversations: conversations,
     }
 
     // Mengubah data ke dalam format JSON
