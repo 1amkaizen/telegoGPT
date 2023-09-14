@@ -1,9 +1,6 @@
 # telegoGPT
-[![forthebadge](http://forthebadge.com/images/badges/made-with-go.svg)](http://forthebadge.com)
-[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)
-
-
-![GitHub last commit](https://img.shields.io/github/last-commit/1amkaizen/telegoGPT) ![GitHub issues](https://img.shields.io/github/issues/1amkaizen/telegoGPT) ![GitHub pull requests](https://img.shields.io/github/issues-pr/1amkaizen/telegoGPT) ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/1amkaizen/telegoGPT) ![GitHub contributors](https://img.shields.io/github/contributors/1amkaizen/telegoGPT)
+![](https://img.shields.io/badge/Code-Go-informational?style=flat&logo=go&color=61DAFB) ![](https://img.shields.io/badge/Code-JavaScript-informational?style=flat&logo=JavaScript&color=F7DF1E) ![](https://img.shields.io/badge/Code-HTML5-informational?style=flat&logo=HTML5&color=E34F26) ![](https://img.shields.io/badge/Code-MySQL-informational?style=flat&logo=mysql&color=336791)
+ 
 
 telegoGPT adalah bot telegram dan integrasi openai dengan menggunakan bahasa golang.
 
