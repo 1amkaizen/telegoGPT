@@ -60,6 +60,20 @@ func SendMessage(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
  }
  log.Printf("[%s] %s %s", update.Message.From.UserName, update.Message.Text, response)
 
+
+// Simpan pesan ke dalam database
+    message := &models.Messages{
+        UserID:    strconv.FormatInt(update.Message.Chat.ID, 10),
+        MessageID: int64(update.Message.MessageID),
+        Message:   update.Message.Text,
+        Reply:     response,
+    }
+    if err := models.DB.Create(message).Error; err != nil {
+        log.Println("Gagal menyimpan pesan dalam database")
+        return
+    }
+
+	
  msg := tgbotapi.NewMessage(update.Message.Chat.ID, response)
  msg.ReplyToMessageID = update.Message.MessageID
 
