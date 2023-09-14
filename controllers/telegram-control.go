@@ -19,7 +19,7 @@ func AccessOpenAIAPI(prompt string) (string, error) {
 
 	req := gogpt.CompletionRequest{
 		Model:            gogpt.GPT3TextDavinci003,
-		MaxTokens:        250,
+		MaxTokens:        500,
 		Temperature:      0.9,
 		TopP:             1,
 		FrequencyPenalty: 0.0,
@@ -130,7 +130,7 @@ func HandleHelpCommand(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	ctx := context.Background()
 	req := gogpt.CompletionRequest{
 		Model:            gogpt.GPT3TextDavinci003,
-		MaxTokens:        150,
+		MaxTokens:        500,
 		Temperature:      0.5,
 		TopP:             0.3,
 		FrequencyPenalty: 0.5,
