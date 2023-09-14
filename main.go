@@ -1,7 +1,7 @@
 package main
 
 import (
-
+"net/http"
 	"fmt"
 	"log"
 	"os"
@@ -121,4 +121,22 @@ func main() {
 				// Tambahkan logika Anda di sini untuk menangani aksi default jika tidak ada yang sesuai dengan callback.Data
 			}
 		}
+
+
+
+	    // Atur handler untuk menampilkan log
+http.HandleFunc("/log", logHandler)
+
+// Mulai server HTTP pada port tertentu
+go func() {
+    port := os.Getenv("PORT") // Port yang Anda dapatkan dari platform hosting
+    if port == "" {
+        port = "8080" // Port default jika tidak ada PORT yang diberikan
+    }
+
+    log.Printf("Server HTTP berjalan pada port %s", port)
+    if err := http.ListenAndServe(":"+port, nil); err != nil {
+        log.Fatal(err)
+    }
+}()
 }
