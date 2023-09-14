@@ -11,6 +11,41 @@ import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
+
+// Endpoint API untuk mengambil data pengguna dan percakapan
+func UserConversationHandler(w http.ResponseWriter, r *http.Request) {
+    // Di sini, Anda perlu mengambil data pengguna dan percakapan dari database Anda.
+    // Gantilah kode berikut ini dengan logika yang sesuai untuk mengambil data tersebut.
+    userData := []models.UserData{}      // Ganti dengan model data pengguna Anda
+    conversationData := []models.Message{} // Ganti dengan model data percakapan Anda
+
+    // Menggabungkan data pengguna dan percakapan ke dalam struktur data yang sesuai
+    data := struct {
+        Users       []models.UserData
+        Conversations []models.Message
+    }{
+        Users:       userData,
+        Conversations: conversationData,
+    }
+
+    // Mengubah data ke dalam format JSON
+    jsonData, err := json.Marshal(data)
+    if err != nil {
+        http.Error(w, err.Error(), http.StatusInternalServerError)
+        return
+    }
+
+    // Menetapkan tipe konten dan mengirimkan respons JSON
+    w.Header().Set("Content-Type", "application/json")
+    w.WriteHeader(http.StatusOK)
+    w.Write(jsonData)
+}
+
+
+
+
+
+
 func main() {
 
 	models.ConnectDatabase()
@@ -29,7 +64,17 @@ func main() {
 	updates := bot.GetUpdatesChan(u)
 
 
+// Konfigurasi lainnya ...
 
+    // Mengatur endpoint API untuk mengambil data pengguna dan percakapan
+    http.HandleFunc("/api/user-conversation", UserConversationHandler)
+
+    // Mulai server HTTP
+    go func() {
+        log.Fatal(http.ListenAndServe(":8080", nil)) // Ganti port sesuai kebutuhan Anda
+    }()
+
+    // Logika bot Anda ...
 
 	
 	for update := range updates {
