@@ -79,7 +79,7 @@ func main() {
     http.HandleFunc("/get-messages", getMessagesHandler)
 
     // Mulai server Anda
-    http.ListenAndServe(":5616", nil)
+    http.ListenAndServe(":8080", nil)
 
 
 	
