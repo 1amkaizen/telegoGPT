@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Log Percakapan Bot</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Log Percakapan Bot</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>User ID</th>
+                <th>Pesan Pengguna</th>
+                <th>Bot Response</th>
+            </tr>
+        </thead>
+        <tbody id="log-table-body">
+            <!-- Data log akan ditampilkan di sini -->
+        </tbody>
+    </table>
+    
+    <script>
+        // Fungsi ini akan dipanggil secara berkala untuk mengambil data log dari server dan menampilkan mereka di tabel
+        function refreshLogTable() {
+            fetch('/get-messages') // Ganti URL ini sesuai dengan endpoint Anda
+                .then(response => response.json())
+                .then(data => {
+                    const logTableBody = document.getElementById('log-table-body');
+                    logTableBody.innerHTML = ''; // Bersihkan tabel sebelum menambahkan data baru
+                    
+                    data.forEach(logEntry => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${logEntry.UserID}</td>
+                            <td>${logEntry.Message}</td>
+                            <td>${logEntry.BotReply}</td>
+                        `;
+                        logTableBody.appendChild(row);
+                    });
+                });
+        }
+
+        // Panggil fungsi refreshLogTable setiap beberapa detik
+        setInterval(refreshLogTable, 5000); // Ganti interval sesuai dengan kebutuhan Anda
+        refreshLogTable(); // Panggil fungsi untuk pertama kali saat halaman dimuat
+    </script>
+</body>
+</html>
