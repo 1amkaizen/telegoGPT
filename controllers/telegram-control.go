@@ -19,32 +19,7 @@ import (
 
 
 
-func GetMessages(w http.ResponseWriter, r *http.Request) {
-    // Ambil data log percakapan dari database atau tempat penyimpanan lainnya
-    // Contoh pengambilan data dari database menggunakan GORM:
-    var messages []models.Messages
-    models.DB.Find(&messages)
 
-    // Konversi data log percakapan ke format JSON
-    logEntries := []map[string]interface{}{}
-    for _, message := range messages {
-        logEntry := map[string]interface{}{
-            "UserID":   message.UserID,
-            "Message":  message.Message,
-            "BotReply": message.Reply,
-        }
-        logEntries = append(logEntries, logEntry)
-    }
-
-    // Set header content type to JSON
-    w.Header().Set("Content-Type", "application/json")
-
-    // Kirim data log percakapan sebagai JSON
-    if err := json.NewEncoder(w).Encode(logEntries); err != nil {
-        http.Error(w, "Gagal mengirim data", http.StatusInternalServerError)
-        return
-    }
-}
 
 
 
@@ -83,8 +58,7 @@ func SetupBot() (*tgbotapi.BotAPI, error) {
 	log.Printf("Authorized on account %s", bot.Self.UserName)
 	return bot, nil
 
-	// Di dalam fungsi SetupBot(), tambahkan kode berikut untuk menambahkan rute HTTP:
-http.HandleFunc("/get-messages", controllers.GetMessages)
+	
 }
 
 func SendMessage(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
