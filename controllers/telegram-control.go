@@ -17,7 +17,21 @@ import (
 
 
 
+func SaveMessageToDB(message tgbotapi.Message, reply string) {
+    newMessage := models.Messages{
+        MessageID: message.MessageID,
+        UserID:    strconv.FormatInt(message.Chat.ID, 10),
+        Message:   message.Text,
+        Reply:     reply,
+    }
 
+    err := models.DB.Create(&newMessage).Error
+    if err != nil {
+        log.Println("Error saving message to database:", err)
+    } else {
+        log.Println("Message saved to database.")
+    }
+}
 
 
 
@@ -70,6 +84,8 @@ func SendMessage(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	
  msg := tgbotapi.NewMessage(update.Message.Chat.ID, response)
  msg.ReplyToMessageID = update.Message.MessageID
+// Simpan pesan ke database
+    SaveMessageToDB(*update.Message, response)
 
  bot.Send(msg)
 
