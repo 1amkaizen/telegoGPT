@@ -17,15 +17,14 @@ import (
 
 
 func SaveMessageToDB(message tgbotapi.Message, reply string) {
-    // Mendapatkan username dari pesan
-    userName := message.From.UserName
+    
 
     newMessage := models.Messages{
         MessageID: message.MessageID,
         UserID:    strconv.FormatInt(message.Chat.ID, 10),
         Message:   message.Text,
         Reply:     reply,
-        UserName:  userName,
+        UserName:  message.From.UserName,
     }
 
     err := models.DB.Create(&newMessage).Error
