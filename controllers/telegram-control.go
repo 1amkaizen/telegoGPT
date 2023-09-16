@@ -27,6 +27,13 @@ func SaveMessageToDB(message tgbotapi.Message, reply string) {
         UserName:  message.From.UserName,
     }
 
+	fmt.Println("MessageID:", newMessage.MessageID)
+fmt.Println("UserID:", newMessage.UserID)
+fmt.Println("Message:", newMessage.Message)
+fmt.Println("Reply:", newMessage.Reply)
+fmt.Println("UserName:", newMessage.UserName)
+
+
     err := models.DB.Create(&newMessage).Error
     if err != nil {
         log.Println("Error saving message to database:", err)
