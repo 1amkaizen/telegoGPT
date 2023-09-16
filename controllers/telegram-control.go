@@ -18,38 +18,23 @@ import (
 
 func SaveMessageToDB(message tgbotapi.Message, reply string) {
 // Add user to database
-	newMessage := &models.Messages{
-		UserID:   strconv.FormatInt(update.Message.Chat.ID, 10),
-		UserName: update.Message.From.UserName,
-		MessageID: message.MessageID,
-                UserID:    strconv.FormatInt(message.Chat.ID, 10),
-                Message:   message.Text,
-                Reply:     reply,  // Menggunakan nama kolom yang benar: Reply
-	}
-
-	var existingUser models.Users
-	if err := models.DB.Where("user_id = ?", user.UserID).First(&existingUser).Error; err == nil {
-		fmt.Println("User sudah terdaftar")
-		return
-	}
-
-	if err := models.DB.Create(user).Error; err != nil {
-		fmt.Println("Gagal menyimpan data user")
-		return
-	}
-
-	models.DB.Create(user)
-
-	var userFromDB models.Users
-	models.DB.First(&userFromDB, "user_id = ?", user.UserID)
-	log.Println("User from database:", userFromDB)
-
-
-
-
+	
 
 	
-// Mendapatkan username dari pesan
+    newMessage := models.Messages{
+        MessageID: message.MessageID,
+        UserID:    strconv.FormatInt(message.Chat.ID, 10),
+        Message:   message.Text,
+        Reply:     reply,  // Menggunakan nama kolom yang benar: Reply
+        UserName: update.Message.From.UserName,
+    }
+
+    err := models.DB.Create(&newMessage).Error
+    if err != nil {
+        log.Println("Error saving message to database:", err)
+    } else {
+        log.Println("Message saved to database.")
+    }
     
 }
 
