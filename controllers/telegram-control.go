@@ -19,7 +19,7 @@ import (
 func SaveMessageToDB(message tgbotapi.Message, reply string) {
 
 // Mendapatkan username dari pesan
-    userName := Update.Message.From.UserName
+    userName := update.Message.From.UserName
 
 	
     newMessage := models.Messages{
