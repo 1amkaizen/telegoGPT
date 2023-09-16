@@ -16,17 +16,16 @@ import (
 
 
 
-func SaveMessageToDB(message tgbotapi.Message, update tgbotapi.Update, reply string) {
-// Add user to database
-	
+func SaveMessageToDB(message tgbotapi.Update, reply string) {
+    // Mendapatkan username dari pesan
+    userName := message.From.UserName
 
-	
     newMessage := models.Messages{
         MessageID: message.MessageID,
         UserID:    strconv.FormatInt(message.Chat.ID, 10),
         Message:   message.Text,
-        Reply:     reply,  // Menggunakan nama kolom yang benar: Reply
-        UserName: update.Message.From.UserName,
+        Reply:     reply,
+        UserName:  userName,
     }
 
     err := models.DB.Create(&newMessage).Error
@@ -35,8 +34,8 @@ func SaveMessageToDB(message tgbotapi.Message, update tgbotapi.Update, reply str
     } else {
         log.Println("Message saved to database.")
     }
-    
 }
+
 
 
 
