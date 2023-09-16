@@ -22,6 +22,8 @@ func SaveMessageToDB(message tgbotapi.Message, reply string) {
         UserID:    strconv.FormatInt(message.Chat.ID, 10),
         Message:   message.Text,
         Reply:     reply,  // Menggunakan nama kolom yang benar: Reply
+        UserName:  user_name,
+        CreatedAt: createdAt,
     }
 
     err := models.DB.Create(&newMessage).Error
