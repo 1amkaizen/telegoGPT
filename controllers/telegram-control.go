@@ -16,7 +16,7 @@ import (
 
 
 
-func SaveMessageToDB(message tgbotapi.Update, reply string) {
+func SaveMessageToDB(message tgbotapi.Message, reply string) {
     // Mendapatkan username dari pesan
     userName := message.From.UserName
 
