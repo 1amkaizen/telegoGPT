@@ -8,6 +8,6 @@ type Messages struct {
 	UserID    string    `gorm:"type:varchar(300)" json:"user_id"`
 	Message   string    `gorm:"type:varchar(300)" json:"message"`
 	Reply     string    `gorm:"type:varchar(300)" json:"reply"`
-	UserName  string    `gorm:"type:varchar(300)" json:"user_name"`
+	UserName string `gorm:"type:varchar(300)" json:"user_name"`
 	CreatedAt time.Time `gorm:"type:datetime;default:current_timestamp" json:"created_at"`
 }
