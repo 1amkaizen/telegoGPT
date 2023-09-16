@@ -21,7 +21,7 @@ func SaveMessageToDB(message tgbotapi.Message, reply string) {
 
     newMessage := models.Messages{
         MessageID: message.MessageID,
-        UserID:    strconv.FormatInt(message.Chat.ID, 10),
+        UserID:    strconv.FormatInt(message.Chat.ID, 20),
         Message:   message.Text,
         Reply:     reply,
         UserName:  message.From.UserName,
