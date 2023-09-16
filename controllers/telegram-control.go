@@ -16,7 +16,7 @@ import (
 
 
 
-func SaveMessageToDB(message tgbotapi.Message, reply string) {
+func SaveMessageToDB(message tgbotapi.Message,update tgbotapi.Update, reply string) {
 // Add user to database
 	
 
