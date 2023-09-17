@@ -34,7 +34,7 @@ func SaveMessageToDB(message tgbotapi.Message, reply string) {
         Message:   message.Text,
         Reply:     reply,
         UserName:  userName, 
-        CreatedAt: message.Date,
+        
     }
 
 
