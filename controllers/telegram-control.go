@@ -17,7 +17,7 @@ import (
 
 
 
-func SaveMessageToDB(message tgbotapi.Message, reply string, ) {
+func SaveMessageToDB(message tgbotapi.Message, reply string) {
     // Periksa apakah UserName ada
     var userName string
     if message.From != nil {
@@ -108,10 +108,10 @@ func SendMessage(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
  msg.ReplyToMessageID = update.Message.MessageID
 
 // Get the message time
-    messageTime := time.Unix(int64(update.Message.Date), 0)
+    
 
 // Simpan pesan ke database
-    SaveMessageToDB(*update.Message, response, messageTime)
+    SaveMessageToDB(*update.Message, response)
 
  bot.Send(msg)
 
@@ -120,7 +120,7 @@ func HandleStartCommand(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	log.Printf("UserName :%s", update.Message.From.UserName)
 	log.Printf("ID :%d", update.Message.Chat.ID)
 	log.Printf("Text: %s", update.Message.Text)
-	
+	log.Printf("Date: %s", update.Message.Date)
 
 	// button
 	twitterButton := tgbotapi.NewInlineKeyboardButtonData("Twitter🐦", "twitter")
