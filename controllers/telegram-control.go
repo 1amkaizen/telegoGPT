@@ -40,6 +40,7 @@ currentTimestamp := time.Now() // Ambil waktu saat ini
 
 	
 fmt.Println("UserName:", newMessage.UserName)
+	fmt.Println("CreatedAt:", newMessage.CreatedAT)
 
 
     err := models.DB.Create(&newMessage).Error
