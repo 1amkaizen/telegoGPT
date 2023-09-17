@@ -1,6 +1,5 @@
 package models
 
-import "time"
 
 type Messages struct {
     ID        uint64    `gorm:"primaryKey;autoIncrement" json:"id"`
