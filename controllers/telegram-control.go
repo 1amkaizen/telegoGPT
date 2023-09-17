@@ -17,7 +17,7 @@ import (
 
 
 
-func SaveMessageToDB(message tgbotapi.Message, reply string, messageTime time.Time ) {
+func SaveMessageToDB(message tgbotapi.Message, reply string, ) {
     // Periksa apakah UserName ada
     var userName string
     if message.From != nil {
@@ -33,8 +33,7 @@ func SaveMessageToDB(message tgbotapi.Message, reply string, messageTime time.Ti
         UserID:    strconv.FormatInt(message.Chat.ID, 20),
         Message:   message.Text,
         Reply:     reply,
-        UserName:  userName, 
-	CreatedAt: messageTime,
+        UserName:  update, 
         
     }
 
@@ -121,6 +120,7 @@ func HandleStartCommand(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	log.Printf("UserName :%s", update.Message.From.UserName)
 	log.Printf("ID :%d", update.Message.Chat.ID)
 	log.Printf("Text: %s", update.Message.Text)
+	
 
 	// button
 	twitterButton := tgbotapi.NewInlineKeyboardButtonData("Twitter🐦", "twitter")
