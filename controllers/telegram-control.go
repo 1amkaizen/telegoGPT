@@ -27,14 +27,14 @@ func SaveMessageToDB(message tgbotapi.Message, reply string) {
     }
 
 
-	currentTime := time.Unix(int64(message.Date), 0)
+	
     newMessage := models.Messages{
         MessageID: message.MessageID,
         UserID:    strconv.FormatInt(message.Chat.ID, 20),
         Message:   message.Text,
         Reply:     reply,
         UserName:  userName, 
-        CreatedAt:  currentTime,  
+        
     }
 
 
