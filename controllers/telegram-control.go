@@ -17,14 +17,21 @@ import (
 
 
 func SaveMessageToDB(message tgbotapi.Message, reply string) {
-    
-
+    // Periksa apakah UserName ada
+    var userName string
+    if message.From != nil {
+        userName = message.From.UserName
+    } else {
+        userName = "Unknown" // Atur ke nilai default jika UserName tidak ada
+    }
+CreatedAt: currentTimestamp,
     newMessage := models.Messages{
         MessageID: message.MessageID,
         UserID:    strconv.FormatInt(message.Chat.ID, 20),
         Message:   message.Text,
         Reply:     reply,
-        UserName:  message.From.UserName,
+        UserName:  userName, 
+        CreatedAt: currentTimestamp,  
     }
 
 	fmt.Println("MessageID:", newMessage.MessageID)
