@@ -37,6 +37,16 @@ func SaveMessageToDB(message tgbotapi.Message, reply string) {
         CreatedAt: time.Now(),  
     }
 
+
+	// Konversi created_at dari []uint8 ke time.Time
+for i := range messages {
+    createdString := string(messages[i].CreatedAt.([]uint8))
+    createdTime, err := time.Parse("2006-01-02 15:04:05", createdString)
+    if err != nil {
+        log.Println("Error parsing created_at:", err)
+    }
+    messages[i].CreatedAt = createdTime
+}
 	
 fmt.Println("UserName:", newMessage.UserName)
 	fmt.Println("CreatedAt:", newMessage.CreatedAt)
