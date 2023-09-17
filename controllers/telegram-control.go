@@ -38,10 +38,7 @@ currentTimestamp := time.Now() // Ambil waktu saat ini
         CreatedAt: currentTimestamp,  
     }
 
-	fmt.Println("MessageID:", newMessage.MessageID)
-fmt.Println("UserID:", newMessage.UserID)
-fmt.Println("Message:", newMessage.Message)
-fmt.Println("Reply:", newMessage.Reply)
+	
 fmt.Println("UserName:", newMessage.UserName)
 
 
