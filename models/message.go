@@ -9,5 +9,6 @@ type Messages struct {
 	Message   string    `gorm:"type:varchar(300)" json:"message"`
 	Reply     string    `gorm:"type:varchar(300)" json:"reply"`
 	UserName  string    `gorm:"type:varchar(300)" json:"user_name"`
-	CreatedAt time.Time `gorm:"type:datetime;default:currentTimestamp" json:"created_at"`
+        CreatedAt time.Time `gorm:"type:datetime" json:"created_at"`
+
 }
