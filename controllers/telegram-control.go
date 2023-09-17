@@ -24,7 +24,10 @@ func SaveMessageToDB(message tgbotapi.Message, reply string) {
     } else {
         userName = "Unknown" // Atur ke nilai default jika UserName tidak ada
     }
-CreatedAt: currentTimestamp,
+
+currentTimestamp := time.Now() // Ambil waktu saat ini
+
+	
     newMessage := models.Messages{
         MessageID: message.MessageID,
         UserID:    strconv.FormatInt(message.Chat.ID, 20),
