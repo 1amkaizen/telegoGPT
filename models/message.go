@@ -1,6 +1,5 @@
 package models
 
-import "time"
 
 type Messages struct {
 	ID        uint64    `gorm:"primaryKey;autoIncrement" json:"id"`
@@ -9,5 +8,5 @@ type Messages struct {
 	Message   string    `gorm:"type:varchar(300)" json:"message"`
 	Reply     string    `gorm:"type:varchar(300)" json:"reply"`
 	UserName  string    `gorm:"type:varchar(300)" json:"user_name"`
-	CreatedAt time.Time `gorm:"type:varchar(300)" json:"created_at"`
+	CreatedAt string    `gorm:"type:varchar(300)" json:"created_at"`
 }
