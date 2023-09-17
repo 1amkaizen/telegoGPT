@@ -26,7 +26,6 @@ func SaveMessageToDB(message tgbotapi.Message, reply string) {
         userName = "Unknown" // Atur ke nilai default jika UserName tidak ada
     }
 
-currentTimestamp := time.Now() // Ambil waktu saat ini
 
 	
     newMessage := models.Messages{
@@ -35,7 +34,7 @@ currentTimestamp := time.Now() // Ambil waktu saat ini
         Message:   message.Text,
         Reply:     reply,
         UserName:  userName, 
-        CreatedAt: currentTimestamp,  
+        CreatedAt: time.Now(),  
     }
 
 	
