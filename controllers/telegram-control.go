@@ -112,7 +112,7 @@ func SendMessage(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
     messageTime := time.Unix(int64(update.Message.Date), 0)
 
 // Simpan pesan ke database
-    SaveMessageToDB(*update.Message, response)
+    SaveMessageToDB(*update.Message, response, messageTime)
 
  bot.Send(msg)
 
