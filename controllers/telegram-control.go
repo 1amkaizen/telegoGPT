@@ -41,7 +41,7 @@ func SaveMessageToDB(message tgbotapi.Message, reply string) {
 	
 	
 fmt.Println("UserName:", newMessage.UserName)
-	fmt.Println("CreatedAt:", newMessage.CreatedAt)
+	
 
 
     err := models.DB.Create(&newMessage).Error
