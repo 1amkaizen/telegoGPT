@@ -34,6 +34,7 @@ func SaveMessageToDB(message tgbotapi.Message, reply string) {
         Message:   message.Text,
         Reply:     reply,
         UserName:  userName, 
+	CreatedAt: messageTime,
         
     }
 
@@ -106,6 +107,10 @@ func SendMessage(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 	
  msg := tgbotapi.NewMessage(update.Message.Chat.ID, response)
  msg.ReplyToMessageID = update.Message.MessageID
+
+// Get the message time
+    messageTime := time.Unix(int64(update.Message.Date), 0)
+
 // Simpan pesan ke database
     SaveMessageToDB(*update.Message, response)
 
