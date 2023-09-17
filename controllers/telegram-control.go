@@ -7,7 +7,7 @@ import (
 	"log"
 	"os"
 	"strconv"
-	"time" 
+	 
 	
 
 	"github.com/1amkaizen/telegoGPT/models"
@@ -34,7 +34,7 @@ func SaveMessageToDB(message tgbotapi.Message, reply string) {
         Message:   message.Text,
         Reply:     reply,
         UserName:  userName, 
-        
+        CreatedAt: message.Date,
     }
 
 
