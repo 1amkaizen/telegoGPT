@@ -17,7 +17,7 @@ import (
 
 
 
-func SaveMessageToDB(message tgbotapi.Message, reply string) {
+func SaveMessageToDB(message tgbotapi.Message, reply string, messageTime time.Time ) {
     // Periksa apakah UserName ada
     var userName string
     if message.From != nil {
