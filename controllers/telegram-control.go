@@ -103,10 +103,8 @@ func SendMessage(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
   return
  }
 
-userPhoto := ""
-if update.Message.From != nil {
-    userPhoto = update.Message.From.PhotoURL
-}
+userPhoto := fmt.Sprintf("https://telegram.me/userpic/%s/%s", update.Message.From.UserName, update.Message.From.FileID)
+
 
 	
  log.Printf("[%s] %s %s", update.Message.From.UserName, update.Message.Text, response)
