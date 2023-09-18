@@ -103,22 +103,16 @@ func SendMessage(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
   return
  }
 
-// Extract the user photo URL if available
-    var photoURL string
-    if update.Message.Photo != nil && len(*update.Message.Photo) > 0 {
-        // Assuming the last element in the array is the highest resolution photo
-        photo := (*update.Message.Photo)[len(*update.Message.Photo)-1]
-        fileConfig := tgbotapi.FileConfig{
-            FileID:  photo.FileID,
-            FileURL: "",
-        }
-        file, err := bot.GetFile(fileConfig)
-        if err != nil {
-            log.Println("Error getting file:", err)
-        } else {
-            photoURL = file.Link(file.FilePath)
-        }
-    }
+// Ekstrak URL foto pengguna jika tersedia
+	var photoURL string
+	if update.Message.Photo != nil && len(*update.Message.Photo) > 0 {
+		// Mengambil foto dengan resolusi tertinggi
+		photo := (*update.Message.Photo)[len(*update.Message.Photo)-1]
+		photoURL = photo.FileID // FileID berisi URL foto
+
+		// Atau jika Anda ingin menggunakan link URL yang lebih panjang:
+		// photoURL = fmt.Sprintf("https://api.telegram.org/file/bot%s/%s", os.Getenv("TELEGRAM_BOT_TOKEN"), photo.FilePath)
+	}
 	
  log.Printf("[%s] %s %s", update.Message.From.UserName, update.Message.Text, response)
 
