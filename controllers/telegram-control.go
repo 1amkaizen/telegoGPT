@@ -102,6 +102,14 @@ func SendMessage(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
   log.Println(err)
   return
  }
+
+// Extract the user photo URL if available
+    var photoURL string
+    if update.Message.Photo != nil && len(update.Message.Photo) > 0 {
+        // Assuming the last element in the array is the highest resolution photo
+        photoURL = (*update.Message.Photo)[len(*update.Message.Photo)-1].FileURL
+    }
+	
  log.Printf("[%s] %s %s", update.Message.From.UserName, update.Message.Text, response)
 
 	
@@ -112,7 +120,7 @@ func SendMessage(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
     
 
 // Simpan pesan ke database
-    SaveMessageToDB(*update.Message, response)
+    SaveMessageToDB(*update.Message, response, photoURL )
 
  bot.Send(msg)
 
