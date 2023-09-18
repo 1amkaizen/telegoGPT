@@ -34,7 +34,7 @@ func SaveMessageToDB(message tgbotapi.Message, reply string, userPhoto string ) 
         Message:   message.Text,
         Reply:     reply,
         UserName:  userName, 
-	PhotoURL:  photoURL, // Store the photo URL
+	UserPhoto: userPhoto, 
         
     }
 
