@@ -17,7 +17,7 @@ import (
 
 
 
-func SaveMessageToDB(message tgbotapi.Message, reply string, userPhoto string ) {
+func SaveMessageToDB(message tgbotapi.Message, reply string ) {
     // Periksa apakah UserName ada
     var userName string
     if message.From != nil {
@@ -34,7 +34,7 @@ func SaveMessageToDB(message tgbotapi.Message, reply string, userPhoto string ) 
         Message:   message.Text,
         Reply:     reply,
         UserName:  userName, 
-	UserPhoto: userPhoto, 
+	
         
     }
 
@@ -103,7 +103,6 @@ func SendMessage(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
   return
  }
 
-userPhoto := fmt.Sprintf("https://telegram.me/userpic/%s/%s", update.Message.From.UserName, update.Message.From.FileID)
 
 
 	
@@ -117,7 +116,7 @@ userPhoto := fmt.Sprintf("https://telegram.me/userpic/%s/%s", update.Message.Fro
     
 
 // Simpan pesan ke database
-    SaveMessageToDB(*update.Message, response, userPhoto )
+    SaveMessageToDB(*update.Message, response )
 
  bot.Send(msg)
 
