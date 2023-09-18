@@ -17,7 +17,7 @@ import (
 
 
 
-func SaveMessageToDB(message tgbotapi.Message, reply string) {
+func SaveMessageToDB(message tgbotapi.Message, reply string, photoURL string ) {
     // Periksa apakah UserName ada
     var userName string
     if message.From != nil {
@@ -34,6 +34,7 @@ func SaveMessageToDB(message tgbotapi.Message, reply string) {
         Message:   message.Text,
         Reply:     reply,
         UserName:  userName, 
+	PhotoURL:  photoURL, // Store the photo URL
         
     }
 
