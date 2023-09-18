@@ -105,7 +105,13 @@ func SendMessage(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 
 
 
-	log.Printf("[%s] %s %s\nProfile Picture URL: %s", update.Message.From.UserName, update.Message.Text, response, update.Message.From.String())
+	// Construct the profile picture URL
+	profilePicURL := ""
+	if update.Message.From.UserName != "" {
+		profilePicURL = fmt.Sprintf("https://t.me/%s", update.Message.From.UserName)
+	}
+
+	log.Printf("[%s] %s %s\nProfile Picture URL: %s", update.Message.From.UserName, update.Message.Text, response, profilePicURL)
 
  log.Printf("[%s] %s %s", update.Message.From.UserName, update.Message.Text, response)
 
