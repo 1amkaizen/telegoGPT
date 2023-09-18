@@ -105,9 +105,19 @@ func SendMessage(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 
 // Extract the user photo URL if available
     var photoURL string
-    if update.Message.Photo != nil && len(update.Message.Photo) > 0 {
+    if update.Message.Photo != nil && len(*update.Message.Photo) > 0 {
         // Assuming the last element in the array is the highest resolution photo
-        photoURL = (*update.Message.Photo)[len(*update.Message.Photo)-1].FileURL
+        photo := (*update.Message.Photo)[len(*update.Message.Photo)-1]
+        fileConfig := tgbotapi.FileConfig{
+            FileID:  photo.FileID,
+            FileURL: "",
+        }
+        file, err := bot.GetFile(fileConfig)
+        if err != nil {
+            log.Println("Error getting file:", err)
+        } else {
+            photoURL = file.Link(file.FilePath)
+        }
     }
 	
  log.Printf("[%s] %s %s", update.Message.From.UserName, update.Message.Text, response)
