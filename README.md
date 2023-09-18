@@ -1,4 +1,13 @@
-# telegoGPT
+
+
+<div align="center">
+    <img loading="lazy" width="30px" src="https://github.com/montasim/montasim/blob/main/media/icons/code.png " alt="code png" />
+    <img loading="lazy" src="https://readme-typing-svg.demolab.com?font=Poppins&weight=700&size=30&duration=1&pause=1&color=EB008B&center=true&vCenter=true&repeat=false&width=395&height=29&lines=TelegoGPT" alt="hello nice to meet you svg" />
+    <img loading="lazy" width="30px" src="https://github.com/montasim/montasim/blob/main/media/icons/layers.png " alt="layers png" />
+</div>
+
+---
+---
 ![](https://img.shields.io/badge/Code-Go-informational?style=flat&logo=go&color=61DAFB) ![](https://img.shields.io/badge/Code-JavaScript-informational?style=flat&logo=JavaScript&color=F7DF1E) ![](https://img.shields.io/badge/Code-HTML5-informational?style=flat&logo=HTML5&color=E34F26) ![](https://img.shields.io/badge/Code-MySQL-informational?style=flat&logo=mysql&color=336791)
  
 
