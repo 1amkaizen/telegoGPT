@@ -53,3 +53,7 @@ bot, err := tgbotapi.NewBotAPI("TELEGRAMBOT_TOKEN")
 <a href="https://twitter.com/1amkaizen"><img src="https://img.shields.io/badge/Twitter-2CA5E0?style=for-the-badge&logo=twitter&logoColor=white" />
 <a href="https://replit.com/@1amkaizen?tab=status"><img src="https://img.shields.io/badge/Replit-ff5722?style=for-the-badge&logo=replit&logoColor=white" />
 <a href="https://railway.app?referralCode=v-jhtw"><img src="https://img.shields.io/badge/Railway-ff5722?style=for-the-badge&logo=railway&logoColor=white" />
+---
+<p align="center"><img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/footers/gray0_ctp_on_line.svg?sanitize=true" /></p>
+<p align="center">Copyright &copy; 2023-present <a href="https://github.com/1amkaizen" target="_blank">1amkaizen</a>
+<p align="center"><a href="https://github.com/1amkaizen/telegoGPT/blob/main/LICENSE"><img src="https://img.shields.io/static/v1.svg?style=for-the-badge&label=License&message=MIT&logoColor=d9e0ee&colorA=363a4f&colorB=b7bdf8"/></a></p>
