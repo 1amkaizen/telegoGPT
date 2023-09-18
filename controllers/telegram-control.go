@@ -105,7 +105,8 @@ func SendMessage(bot *tgbotapi.BotAPI, update tgbotapi.Update) {
 
 
 
-	
+	log.Printf("[%s] %s %s\nProfile Picture URL: %s", update.Message.From.UserName, update.Message.Text, response, update.Message.From.String())
+
  log.Printf("[%s] %s %s", update.Message.From.UserName, update.Message.Text, response)
 
 	
