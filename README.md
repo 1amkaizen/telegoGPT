@@ -7,16 +7,19 @@
 </div>
 
 ---
----
 ![](https://img.shields.io/badge/Code-Go-informational?style=flat&logo=go&color=61DAFB) ![](https://img.shields.io/badge/Code-JavaScript-informational?style=flat&logo=JavaScript&color=F7DF1E) ![](https://img.shields.io/badge/Code-HTML5-informational?style=flat&logo=HTML5&color=E34F26) ![](https://img.shields.io/badge/Code-MySQL-informational?style=flat&logo=mysql&color=336791)
- 
 
-telegoGPT adalah bot telegram dan integrasi openai dengan menggunakan bahasa golang.
+[![readme Quotes](https://quotes-github-readme.vercel.app/api?type=horizontal&theme=dark&quote=telegoGPT%20adalah%20bot%20telegram%20dan%20integrasi%20openai%20dengan%20menggunakan%20bahasa%20golang&author=1amkaizen)](https://github.com/piyushsuthar/github-readme-quotes)
 
 
 ![GitHub forks](https://img.shields.io/github/forks/1amkaizen/telegoGPT?style=social) ![GitHub Repo stars](https://img.shields.io/github/stars/1amkaizen/telegoGPT?style=social)
 
-catatan:bot ini masih tahap awal dan sedang dalam pengembangan
+---
+
+
+
+
+**Catatan:** bot ini masih tahap awal dan sedang dalam pengembangan
 
 
 # 🚀 cara menggunakan :
@@ -35,7 +38,7 @@ bot, err := tgbotapi.NewBotAPI("TELEGRAMBOT_TOKEN")
 - Konfigurasi variabel environment database telegoGPT
 - Contoh konfigurasi variabel environment
 
-```
+```json
  {
   "DATABASES": "root:5YUTSCHvx0yXwcsJUQFW@tcp(containers-us-west-139.railway.app:6522)/railway",
   "MYSQLDATABASE": "${{MySQL.MYSQLDATABASE}}",
